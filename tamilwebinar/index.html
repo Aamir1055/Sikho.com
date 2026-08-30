@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Free Trading Webinar | Ab Sikho, Sirf Follow Mat Karo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #2563eb; --red: #dc2626; --gold: #2563eb;
+            --blue: #2563eb; --blue-dark: #1d4ed8;
+            --bg: #f4f7ff; --card: #ffffff;
+            --border: rgba(15,23,42,0.1);
+            --accent-dark: #ffffff;
+            --ink: #0f172a; --ink-muted: #475569;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: #0f172a;
+            min-height: 100vh; overflow-x: hidden;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .trading-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .trading-bg canvas { width: 100%; height: 100%; }
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(17,24,39,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(17,24,39,0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        /* Floating price tags */
+        .float-prices {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none; overflow: hidden;
+        }
+        .float-tag {
+            position: absolute; font-size: 10px; font-weight: 600;
+            padding: 3px 8px; border-radius: 4px;
+            opacity: 0; animation: floatUp 8s linear infinite;
+            font-family: 'Inter', monospace;
+        }
+        .float-tag.g { background: rgba(37,99,235,0.14); color: rgba(107,154,30,0.78); }
+        .float-tag.r { background: rgba(220,38,38,0.12); color: rgba(127,29,29,0.76); }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* Side-pinned market icons */
+        .side-icons {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 15; pointer-events: none;
+        }
+        .side-icon {
+            position: fixed; width: 32px; height: 32px;
+            border-radius: 8px; display: flex;
+            align-items: center; justify-content: center;
+            border: 1px solid rgba(37,99,235,0.35);
+            background: rgba(37,99,235,0.16);
+            pointer-events: none;
+            animation: sideFloat 4s ease-in-out infinite;
+        }
+        .side-icon svg { width: 16px; height: 16px; }
+        .side-icon.left { left: 4px; }
+        .side-icon.right { right: 4px; }
+        @keyframes sideFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Scan line */
+        .scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(37,99,235,0.34), transparent);
+            z-index: 3; pointer-events: none;
+            animation: scanDown 4s ease-in-out infinite;
+        }
+        @keyframes scanDown {
+            0% { top: 0; } 50% { top: 100%; } 100% { top: 0; }
+        }
+
+        /* ===== WRAPPER ===== */
+        .wrapper {
+            position: relative; z-index: 10;
+            max-width: 420px; margin: 0 auto; padding: 0 20px;
+        }
+
+        /* ===== ENTRANCE ANIMATIONS ===== */
+        .anim { opacity: 0; transform: translateY(24px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .anim.show { opacity: 1; transform: translateY(0); }
+
+        /* ===== NAVBAR (Glassmorphism) ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 50; transition: all 0.35s ease;
+        }
+        .navbar-inner {
+            max-width: 420px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 20px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px) saturate(1.5);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+        }
+        /* Mirror / glass reflection */
+        .navbar-inner::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(
+                165deg,
+                rgba(255,255,255,0.07) 0%,
+                rgba(255,255,255,0.02) 25%,
+                transparent 50%,
+                rgba(255,255,255,0.01) 75%,
+                rgba(255,255,255,0.04) 100%
+            );
+            pointer-events: none;
+        }
+        /* Animated light sweep across navbar */
+        .navbar-inner::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+            animation: navSweep 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes navSweep {
+            0% { left: -60%; } 50% { left: 100%; } 100% { left: -60%; }
+        }
+        .navbar.scrolled .navbar-inner {
+            background: rgba(0,0,0,0.85);
+            border-bottom-color: rgba(37,99,235,0.12);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        .navbar.hidden { transform: none; }
+
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; position: relative; z-index: 2;
+        }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 28px; width: auto; }
+        .brand-wordmark {
+            font-size: 18px; font-weight: 900; letter-spacing: -0.3px;
+            text-decoration: none; color: #0f172a;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        /* Spacer for fixed navbar */
+        .nav-spacer { height: 56px; }
+        .live-indicator {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .live-indicator .dot {
+            width: 6px; height: 6px; background: var(--green);
+            border-radius: 50%; position: relative;
+        }
+        .live-indicator .dot::after {
+            content: ''; position: absolute; inset: -3px;
+            border: 1px solid var(--green); border-radius: 50%;
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+
+        /* ===== LIVE TICKER ===== */
+        .ticker {
+            display: flex; gap: 10px; padding: 10px 0;
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .ticker::-webkit-scrollbar { display: none; }
+        .scroll-to-form-zone {
+            cursor: pointer;
+        }
+        .market-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.45px;
+            text-transform: uppercase;
+            margin: 0 0 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.55);
+            background: rgba(255,255,255,0.03);
+        }
+        .market-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+        }
+        .market-status.live {
+            color: rgba(37,99,235,0.95);
+            border-color: rgba(37,99,235,0.25);
+            background: rgba(37,99,235,0.08);
+        }
+        .market-status.live::before {
+            background: #2563eb;
+            box-shadow: 0 0 0 0 rgba(37,99,235,0.35);
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        .market-status.fallback {
+            color: rgba(59,130,246,0.95);
+            border-color: rgba(59,130,246,0.25);
+            background: rgba(59,130,246,0.08);
+        }
+        .market-status.fallback::before {
+            background: #3b82f6;
+        }
+        .market-status.checking {
+            color: rgba(255,255,255,0.6);
+            border-color: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.05);
+        }
+        .market-status.checking::before {
+            background: rgba(255,255,255,0.7);
+        }
+        .tick {
+            flex-shrink: 0; min-width: 120px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 14px;
+            transition: border-color 0.3s;
+        }
+        .tick.flash-green { border-color: rgba(37,99,235,0.3); }
+        .tick.flash-red { border-color: rgba(255,82,82,0.3); }
+        .tick .sym {
+            font-size: 10px; color: rgba(255,255,255,0.3);
+            font-weight: 600; letter-spacing: 0.3px;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .tick .sym .live-pip {
+            width: 4px; height: 4px; background: #2563eb;
+            border-radius: 50%; animation: blink 2s infinite;
+        }
+        .tick .price {
+            font-size: 15px; font-weight: 700; margin: 3px 0;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s;
+        }
+        .tick .change {
+            font-size: 11px; font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .tick .change.up { color: var(--green); }
+        .tick .change.down { color: var(--red); }
+        .tick .mini-chart { margin-top: 6px; height: 20px; }
+        .tick .mini-chart canvas { width: 100%; height: 100%; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px; margin: 6px 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        }
+
+        /* ===== HERO ===== */
+        .hero { padding: 28px 0 20px; text-align: center; }
+        .offer-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 20px;
+            background: rgba(37,99,235,0.08);
+            border: 1px solid rgba(37,99,235,0.2);
+            font-size: 11px; font-weight: 600; color: var(--green);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            animation: tagPulse 2s ease-in-out infinite;
+        }
+        @keyframes tagPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.15); }
+            50% { box-shadow: 0 0 16px 4px rgba(37,99,235,0.08); }
+        }
+        .hero h1 {
+            font-size: 28px; font-weight: 900;
+            line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 10px;
+        }
+        .hero h1 .green { color: #2563eb; }
+        .hero h1 .gold {
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 100% 0; }
+            50% { background-position: 0 0; }
+            100% { background-position: 100% 0; }
+        }
+        .hero p { font-size: 16px; color: rgba(255,255,255,0.4); line-height: 1.6; padding: 0 8px; }
+
+        /* ===== VALUE STRIP ===== */
+        .value-strip {
+            display: flex; margin: 20px 0; border-radius: 14px;
+            overflow: hidden; border: 1px solid rgba(37,99,235,0.12);
+            position: relative;
+        }
+        .value-strip::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(37,99,235,0.04), transparent);
+            animation: stripGlow 3s ease-in-out infinite;
+        }
+        @keyframes stripGlow {
+            0%,100% { opacity: 0; } 50% { opacity: 1; }
+        }
+        .value-strip .col {
+            flex: 1; padding: 16px 10px; text-align: center; position: relative;
+        }
+        .value-strip .col:first-child {
+            background: rgba(37,99,235,0.05);
+            border-right: 1px solid rgba(37,99,235,0.1);
+        }
+        .value-strip .col:last-child { background: rgba(255,215,64,0.05); }
+        .value-strip .label {
+            font-size: 10px; color: rgba(255,255,255,0.35);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            font-weight: 600; margin-bottom: 4px;
+        }
+        .value-strip .val { font-size: 22px; font-weight: 900; }
+        .value-strip .col:first-child .val { color: var(--green); }
+        .value-strip .col:last-child .val { color: var(--gold); }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-bar {
+            display: flex; justify-content: center; gap: 10px;
+            margin: 16px 0 24px;
+        }
+        .countdown-head {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-top: 8px;
+        }
+        .cd-item { text-align: center; min-width: 52px; }
+        .cd-item .n {
+            font-size: 22px; font-weight: 800; color: var(--green);
+            background: rgba(37,99,235,0.06);
+            border: 1px solid rgba(37,99,235,0.1);
+            border-radius: 10px; padding: 8px 4px; display: block;
+            font-variant-numeric: tabular-nums;
+            transition: transform 0.3s;
+        }
+        .cd-item .n.tick-anim { transform: scale(1.08); }
+        .cd-item .l {
+            font-size: 9px; color: rgba(255,255,255,0.25);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-top: 4px; font-weight: 600;
+        }
+
+        /* ===== VIDEOS ===== */
+        .video-row {
+            display: flex; gap: 10px; margin-bottom: 20px;
+        }
+        .video-card {
+            flex: 1; border-radius: 12px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: #0f172a; position: relative;
+            min-height: 220px;
+        }
+        .video-card video {
+            width: 100%; height: 100%; object-fit: cover;
+            display: block;
+        }
+        .video-controls {
+            position: absolute; bottom: 8px; right: 8px;
+            display: flex; gap: 6px; z-index: 5;
+        }
+        .video-hint {
+            position: absolute; left: 10px; bottom: 10px;
+            padding: 6px 10px; border-radius: 8px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75);
+            z-index: 6;
+        }
+        .vid-btn {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+        .vid-btn:active { transform: scale(0.9); }
+        .vid-btn svg { width: 14px; height: 14px; }
+        .video-card .vid-btn.unmute-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border: 1px solid rgba(37,99,235,0.8);
+            box-shadow: 0 10px 28px rgba(37,99,235,0.3);
+            z-index: 8;
+        }
+        .video-card .vid-btn.unmute-center:active {
+            transform: translate(-50%, -50%) scale(0.94);
+        }
+        .video-card .vid-btn.unmute-center svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--accent-dark);
+        }
+        @media (hover: hover) {
+            .video-card .vid-btn.unmute-center {
+                opacity: 0;
+                pointer-events: none;
+            }
+            .video-card:hover .vid-btn.unmute-center,
+            .video-card:focus-within .vid-btn.unmute-center {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        /* ===== FORM ===== */
+        .form-section {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 18px 16px; margin-bottom: 20px;
+            position: relative; overflow: hidden;
+        }
+        .form-section::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+            animation: borderScan 4s linear infinite;
+        }
+        @keyframes borderScan { to { left: 100%; } }
+
+        .form-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; text-align: center; }
+        .field { margin-bottom: 10px; }
+        .field label {
+            display: block; font-size: 11px; font-weight: 500;
+            color: rgba(255,255,255,0.45); margin-bottom: 4px;
+        }
+        .field input, .field select {
+            width: 100%; padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; color: rgba(255,255,255,0.6);
+            font-size: 13px; font-family: 'Inter', sans-serif;
+            outline: none; transition: all 0.3s; -webkit-appearance: none;
+        }
+        .field input::placeholder { color: rgba(255,255,255,0.2); }
+        .field input:focus, .field select:focus {
+            border-color: rgba(37,99,235,0.4);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.06);
+        }
+        .field select { color: rgba(255,255,255,0.6); }
+        .field select option { background: #ffffff; color: #0f172a; }
+        .field .err { font-size: 11px; color: var(--red); margin-top: 5px; display: none; }
+        .field.invalid input, .field.invalid select { border-color: rgba(255,82,82,0.5); }
+        .field.invalid input:focus, .field.invalid select:focus {
+            border-color: rgba(255,82,82,0.7);
+            box-shadow: 0 0 0 3px rgba(255,82,82,0.12);
+        }
+        .field.invalid .err { display: block; }
+        .select-wrap { position: relative; }
+        .select-wrap::after {
+            content: '▾'; position: absolute; right: 14px;
+            top: 50%; transform: translateY(-50%);
+            color: rgba(255,255,255,0.2); font-size: 14px; pointer-events: none;
+        }
+
+        .terms-row {
+            display: flex; align-items: flex-start; gap: 8px; margin: 12px 0;
+        }
+        .terms-row input[type="checkbox"] {
+            width: 16px; height: 16px; flex-shrink: 0;
+            margin-top: 1px; accent-color: #2563eb;
+        }
+        .terms-row label { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.4; }
+        .terms-row a { color: var(--green); text-decoration: none; }
+        .policy-links { white-space: nowrap; }
+
+        .btn-register {
+            width: 100%; padding: 12px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: none; border-radius: 12px; color: #ffffff;
+            font-size: 15px; font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: transform 0.15s;
+        }
+        .btn-register::after {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); animation: btnShine 3s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0% { transform: rotate(45deg) translateX(-120%); }
+            30%,100% { transform: rotate(45deg) translateX(120%); }
+        }
+        .btn-register:active { transform: scale(0.97); }
+        .btn-register:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-register .spin {
+            display: none; width: 18px; height: 18px;
+            border: 2.5px solid rgba(255,255,255,0.35);
+            border-top-color: #ffffff; border-radius: 50%;
+            animation: spin 0.5s linear infinite; margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== SUCCESS ===== */
+        .success-box { display: none; text-align: center; padding: 20px 0; }
+        .success-box .icon {
+            width: 52px; height: 52px; margin: 0 auto 14px;
+            background: rgba(37,99,235,0.1);
+            border: 2px solid rgba(37,99,235,0.25);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 22px; color: var(--green);
+            animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes successPop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+        .success-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .success-box p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+
+        /* Confetti canvas */
+        #confettiCanvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 100; pointer-events: none; display: none;
+        }
+
+        /* ===== FEATURES ===== */
+        .features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .feat {
+            display: flex; align-items: center; gap: 12px; padding: 13px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 12px; transition: all 0.3s;
+        }
+        .feat:active { transform: scale(0.98); background: rgba(255,255,255,0.04); }
+        .feat-icon {
+            width: 34px; height: 34px; flex-shrink: 0;
+            border-radius: 9px; display: flex;
+            align-items: center; justify-content: center; font-size: 15px;
+        }
+        .feat-icon.g { background: rgba(37,99,235,0.07); }
+        .feat-icon.y { background: rgba(37,99,235,0.05); }
+        .feat-icon.b { background: rgba(37,99,235,0.05); }
+        .feat-icon svg { width: 18px; height: 18px; }
+        .feat .feat-text { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.55); }
+        .feat .feat-text strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+
+        /* ===== USP CARDS ===== */
+        .usp-section { margin-bottom: 28px; }
+        .usp-title {
+            font-size: 16px; font-weight: 800; text-align: center;
+            color: rgba(255,255,255,0.55); margin-bottom: 16px;
+            text-transform: uppercase; letter-spacing: 1.5px;
+        }
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .usp-card {
+            flex: 1; min-width: 0;
+            padding: 14px 6px; text-align: center;
+            border-radius: 12px; position: relative;
+            transition: all 0.3s ease;
+        }
+        .usp-card:active { transform: scale(0.97); }
+        .usp-card.dark {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .usp-card.dark:hover {
+            background: #222222;
+            border-color: rgba(37,99,235,0.3);
+        }
+        .usp-card.dark:hover .usp-val { color: #ffffff; }
+        .usp-card.dark:hover .usp-label { color: rgba(255,255,255,0.6); }
+        .usp-card.dark:hover .usp-icon { background: rgba(37,99,235,0.12); }
+        .usp-card.dark:hover .usp-icon svg { stroke: #2563eb; }
+        .usp-card.lime {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .usp-card.lime:hover {
+            background: #222222;
+            border-color: rgba(37,99,235,0.3);
+        }
+        .usp-card.lime:hover .usp-val { color: #ffffff; }
+        .usp-card.lime:hover .usp-label { color: rgba(255,255,255,0.6); }
+        .usp-card.lime:hover .usp-icon { background: rgba(37,99,235,0.12); }
+        .usp-card.lime:hover .usp-icon svg { stroke: #2563eb; }
+        .usp-card .usp-icon {
+            width: 34px; height: 34px; margin: 0 auto 8px;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 16px;
+        }
+        .usp-card .usp-icon svg { width: 18px; height: 18px; }
+        .usp-card.dark .usp-icon { background: rgba(255,255,255,0.05); }
+        .usp-card.lime .usp-icon { background: rgba(255,255,255,0.05); }
+        .usp-card .usp-val {
+            font-size: 14px; font-weight: 900; color: #fff; line-height: 1.2;
+        }
+        .usp-card.lime .usp-val { color: #fff; }
+        .usp-card .usp-label {
+            font-size: 11px; color: rgba(255,255,255,0.4);
+            margin-top: 2px; line-height: 1.3;
+        }
+        .usp-card.lime .usp-label { color: rgba(255,255,255,0.4); }
+        .usp-card.full { grid-column: unset; }
+        @keyframes chipPulse {
+            0%,100% { opacity: 0.7; } 50% { opacity: 1; }
+        }
+        @media (max-width: 420px) {
+            .usp-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* ===== REVIEWS ===== */
+        .reviews-section { margin-bottom: 24px; }
+        .reviews-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .reviews-badge {
+            display: flex; align-items: center; gap: 8px;
+        }
+        .reviews-badge .tp {
+            background: #00b67a; color: #fff; font-size: 10px;
+            font-weight: 700; padding: 4px 10px; border-radius: 4px;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .reviews-badge .rating { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+        .reviews-nav {
+            display: flex; gap: 6px;
+        }
+        .reviews-nav button {
+            width: 30px; height: 30px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1); background: transparent;
+            color: rgba(255,255,255,0.4); font-size: 14px;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .reviews-nav button:active { background: rgba(255,255,255,0.05); }
+        .reviews-track {
+            display: flex; gap: 12px; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+            scroll-snap-type: x mandatory; scroll-behavior: smooth;
+        }
+        .reviews-track::-webkit-scrollbar { display: none; }
+        .review-card {
+            flex-shrink: 0; width: 80%; max-width: 280px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 18px;
+            scroll-snap-align: start;
+        }
+        .review-stars { display: flex; gap: 2px; margin-bottom: 4px; }
+        .review-stars .star { color: #00b67a; font-size: 14px; }
+        .review-stars .star.empty { color: rgba(255,255,255,0.15); }
+        .review-verified {
+            font-size: 10px; color: rgba(255,255,255,0.3);
+            font-weight: 500; margin-bottom: 10px;
+        }
+        .review-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+        .review-text { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 10px; }
+        .review-author { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 500; }
+
+        /* ===== LIVE TRADES FEED ===== */
+        .trades-feed {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 16px; margin-bottom: 20px;
+            max-height: 180px; overflow: hidden; position: relative;
+        }
+        .trades-feed::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 40px;
+            background: linear-gradient(transparent, var(--bg));
+        }
+        .trades-feed .tf-title {
+            font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+        }
+        .trades-feed .tf-title .pulse-dot {
+            width: 5px; height: 5px; background: var(--green);
+            border-radius: 50%; animation: blink 1s infinite;
+        }
+        .trade-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 7px 0; font-size: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            animation: slideInTrade 0.4s ease-out;
+        }
+        @keyframes slideInTrade {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .trade-item .ti-left { display: flex; align-items: center; gap: 8px; }
+        .trade-item .ti-type {
+            font-size: 9px; font-weight: 700; padding: 2px 6px;
+            border-radius: 4px; text-transform: uppercase;
+        }
+        .trade-item .ti-type.buy { background: rgba(37,99,235,0.1); color: var(--green); }
+        .trade-item .ti-type.sell { background: rgba(255,82,82,0.1); color: var(--red); }
+        .trade-item .ti-sym { color: rgba(255,255,255,0.6); font-weight: 600; }
+        .trade-item .ti-price { color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums; }
+        .trade-item .ti-time { color: rgba(255,255,255,0.2); font-size: 10px; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center; padding: 18px 0 32px;
+            font-size: 11px; color: rgba(255,255,255,0.18); line-height: 1.8;
+        }
+        .footer a { color: rgba(255,255,255,0.25); text-decoration: none; }
+        .footer { padding-bottom: 90px; }
+
+        /* ===== FLOATING CTA ===== */
+        .floating-cta {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            z-index: 50; padding: 12px 20px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px) saturate(1.5);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .floating-cta.visible { transform: translateY(0); }
+        .floating-cta.hide { transform: translateY(100%); }
+        /* Mirror reflection on floating CTA */
+        .floating-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(
+                15deg,
+                rgba(255,255,255,0.05) 0%,
+                rgba(255,255,255,0.01) 30%,
+                transparent 60%
+            );
+            pointer-events: none;
+        }
+        .floating-cta-inner {
+            max-width: 420px; margin: 0 auto;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .floating-cta-text {
+            flex: 1; min-width: 0;
+        }
+        .floating-cta-text .fc-main {
+            font-size: 13px; font-weight: 700; color: #fff;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .floating-cta-text .fc-sub {
+            font-size: 10px; color: rgba(255,255,255,0.35); font-weight: 500;
+        }
+        .floating-btn {
+            flex-shrink: 0; padding: 12px 22px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: none; border-radius: 10px;
+            color: #ffffff; font-size: 13px; font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer; position: relative; overflow: hidden;
+            white-space: nowrap;
+            animation: ctaPulse 2s ease-in-out infinite;
+        }
+        @keyframes ctaPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.3); }
+            50% { box-shadow: 0 0 18px 4px rgba(37,99,235,0.15); }
+        }
+        .floating-btn::after {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.12), transparent);
+            transform: rotate(45deg);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+        .floating-btn:active { transform: scale(0.96); }
+
+        .webhook-note {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: rgba(255,255,255,0.28);
+            line-height: 1.5;
+        }
+
+        /* ===== LIGHT THEME OVERRIDES ===== */
+        .trading-bg, .grid-overlay, .scanline, .float-prices, .side-icons { display: none; }
+        .side-icon svg,
+        .side-icon svg * {
+            stroke: #2563eb !important;
+        }
+        .navbar-inner {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid rgba(15,23,42,0.08);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.08);
+        }
+        .navbar-inner::before, .navbar-inner::after { display: none; }
+        .navbar .live-indicator {
+            color: rgba(15,23,42,0.55) !important;
+        }
+        .navbar.scrolled .navbar-inner {
+            background: rgba(255,255,255,0.98);
+            border-bottom-color: rgba(37,99,235,0.2);
+            box-shadow: 0 8px 22px rgba(37,99,235,0.12);
+        }
+        .live-indicator,
+        .tick .sym,
+        .market-status,
+        .hero p,
+        .countdown-head,
+        .cd-item .l,
+        .field label,
+        .terms-row label,
+        .feat .feat-text,
+        .usp-title,
+        .review-text,
+        .review-verified,
+        .review-author,
+        .social-title,
+        .footer,
+        .footer a,
+        .floating-cta-text .fc-sub,
+        .webhook-note,
+        .trade-item .ti-sym,
+        .trade-item .ti-price,
+        .trade-item .ti-time,
+        .value-strip .label,
+        .status-card .sub,
+        .home-link,
+        .current-dt {
+            color: #475569 !important;
+        }
+        .hero h1,
+        .form-title,
+        .success-box h3,
+        .review-title,
+        .floating-cta-text .fc-main,
+        .steps-title,
+        .tick .price,
+        .usp-card .usp-val,
+        .status-card .label,
+        .step-text,
+        .step-text strong,
+        .reviews-badge .rating,
+        .market-status.checking,
+        .market-status.fallback {
+            color: #0f172a !important;
+        }
+        .feat .feat-text strong,
+        .usp-card .usp-label,
+        .usp-card.lime .usp-label {
+            color: #475569 !important;
+        }
+        .feat .feat-text {
+            color: #334155 !important;
+            font-size: 14px !important;
+        }
+        .tick,
+        .form-section,
+        .trades-feed,
+        .review-card,
+        .feat,
+        .social-links a,
+        .usp-card.dark,
+        .usp-card.lime {
+            background: #ffffff;
+            border-color: rgba(15,23,42,0.08);
+            box-shadow: 0 8px 18px rgba(37,99,235,0.06);
+        }
+        .tick:hover,
+        .trades-feed:hover {
+            border-color: #2563eb;
+            box-shadow: 0 10px 24px rgba(37,99,235,0.18);
+        }
+        .tick:hover {
+            transform: translateY(-2px);
+        }
+        .trades-feed .tf-title {
+            color: #0f172a;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+        }
+        .trades-feed .tf-title .pulse-dot {
+            background: #2563eb;
+            box-shadow: 0 0 0 0 rgba(37,99,235,0.35);
+        }
+        .trade-item {
+            border-bottom-color: rgba(15,23,42,0.06);
+        }
+        .trade-item .ti-type.buy {
+            background: rgba(37,99,235,0.1);
+            color: #2563eb;
+        }
+        .trade-item .ti-type.sell {
+            background: rgba(220,38,38,0.1);
+            color: #dc2626;
+        }
+        .value-strip {
+            border-color: rgba(15,23,42,0.08);
+            background: #ffffff;
+            box-shadow: 0 8px 18px rgba(37,99,235,0.06);
+        }
+        .value-strip::before {
+            background: linear-gradient(90deg, transparent, rgba(37,99,235,0.08), transparent);
+        }
+        .value-strip .col:first-child {
+            background: transparent;
+            border-right: 1px solid rgba(37,99,235,0.2);
+        }
+        .value-strip .col:last-child {
+            background: transparent;
+        }
+        .value-strip .label {
+            color: #475569 !important;
+            font-size: 13px !important;
+        }
+        .value-strip .val { color: #2563eb; }
+        .value-strip .col:last-child .val { color: #1d4ed8; }
+        .countdown-head {
+            color: #475569 !important;
+        }
+        .cd-item .n {
+            color: #2563eb;
+            background: #ffffff;
+            border-color: rgba(37,99,235,0.15);
+            box-shadow: 0 6px 14px rgba(37,99,235,0.08);
+        }
+        .cd-item .l {
+            color: #475569 !important;
+        }
+        .field input,
+        .field select {
+            background: #f8fafc;
+            border-color: rgba(15,23,42,0.12);
+            color: #0f172a;
+        }
+        .field input::placeholder {
+            color: rgba(15,23,42,0.35);
+        }
+        .field select,
+        .select-wrap::after {
+            color: rgba(15,23,42,0.5);
+        }
+        .floating-cta {
+            background: rgba(255,255,255,0.96);
+            border-top: 1px solid rgba(15,23,42,0.08);
+            box-shadow: 0 -8px 26px rgba(37,99,235,0.12);
+        }
+        .floating-cta::before { display: none; }
+        .floating-btn,
+        .btn-register {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+        }
+        .field input:focus,
+        .field select:focus {
+            border-color: rgba(37,99,235,0.5);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+        }
+        .offer-tag {
+            background: rgba(37,99,235,0.1);
+            border-color: rgba(37,99,235,0.3);
+            color: #2563eb;
+        }
+        .offer-tag svg { stroke: #2563eb !important; }
+        .hero {
+            position: relative;
+            padding: 30px 14px 24px;
+            margin: 8px 0 10px;
+            border-radius: 18px;
+            background: linear-gradient(160deg, #ffffff, #eff5ff);
+            border: 1px solid rgba(37,99,235,0.12);
+            box-shadow: 0 8px 18px rgba(37,99,235,0.08);
+        }
+        .hero h1 {
+            text-shadow: none;
+            color: #0f172a !important;
+        }
+        .hero p {
+            color: #475569 !important;
+            max-width: 95%;
+            margin: 0 auto;
+            font-size: 15px !important;
+        }
+        .feat-icon.g,
+        .feat-icon.y,
+        .feat-icon.b,
+        .usp-card .usp-icon {
+            background: rgba(37,99,235,0.12) !important;
+            border-radius: 12px;
+        }
+        .feat-icon svg,
+        .usp-card .usp-icon svg {
+            stroke: #2563eb !important;
+        }
+        .usp-card.dark:hover,
+        .usp-card.lime:hover {
+            background: #f0f6ff;
+            border-color: rgba(37,99,235,0.3);
+            box-shadow: 0 10px 24px rgba(37,99,235,0.15);
+            transform: translateY(-2px);
+        }
+        .usp-card.dark:hover .usp-val,
+        .usp-card.lime:hover .usp-val { color: #1d4ed8; }
+        .usp-card.dark:hover .usp-label,
+        .usp-card.lime:hover .usp-label { color: #475569; }
+        svg[stroke="#2563eb"],
+        svg[stroke="#2563eb"] * {
+            stroke: #2563eb !important;
+        }
+        svg[fill="#2563eb"],
+        svg[fill="#2563eb"] * {
+            fill: #2563eb !important;
+        }
+        .reviews-nav button {
+            border-color: rgba(15,23,42,0.15);
+            color: #0f172a;
+            background: #ffffff;
+        }
+        .reviews-nav button:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+        .review-card {
+            width: calc(100% - 2px);
+            max-width: none;
+        }
+        .social-links a { color: #0f172a; }
+        .social-links a svg,
+        .social-links a rect,
+        .social-links a circle,
+        .social-links a line,
+        .social-links a polyline {
+            stroke: #475569 !important;
+        }
+        .social-links a:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        .social-links a:hover svg,
+        .social-links a:hover rect,
+        .social-links a:hover circle,
+        .social-links a:hover line,
+        .social-links a:hover polyline {
+            stroke: #ffffff !important;
+        }
+
+        /* ===== Sikho MARKET — DARK MOBILE REDESIGN ===== */
+        :root {
+            --green: #12b76a;
+            --green-soft: rgba(18,183,106,0.12);
+            --purple: #7c3aed;
+            --purple-2: #5b2fe0;
+            --bg: #070b14;
+            --panel: #0e1420;
+            --line: #1c2434;
+            --ink: #ffffff;
+            --ink-muted: #93a0b8;
+        }
+        body { background: var(--bg); color: var(--ink); }
+        .trading-bg, .grid-overlay, .scanline, .float-prices, .side-icons { display: none !important; }
+        .divider { display: none !important; }
+
+        .wrapper {
+            display: flex; flex-direction: column;
+            max-width: 480px; padding: 0 16px 116px;
+        }
+
+        /* Navbar */
+        .navbar-inner {
+            max-width: 480px; padding: 13px 16px;
+            background: rgba(7,11,20,0.9);
+            border-bottom: 1px solid #161d2b;
+            box-shadow: none;
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+        }
+        .navbar-inner::before, .navbar-inner::after { display: none; }
+        .navbar.scrolled .navbar-inner { background: rgba(7,11,20,0.96); border-bottom-color: #1c2434; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+        .brand-wordmark { color: #fff !important; font-size: 20px; letter-spacing: 0; display: inline-flex; align-items: center; gap: 8px; }
+        .brand-wordmark svg { width: 24px; height: 24px; }
+        .live-indicator {
+            color: #fff !important; font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+            border: 1px solid #2a3346; border-radius: 999px; padding: 7px 12px; background: #0e1420;
+        }
+        .navbar .live-indicator { color: #fff !important; }
+        .live-indicator .dot { background: #ef4444; }
+        .live-indicator .dot::after { border-color: #ef4444; }
+
+        /* Ordering */
+        .nav-spacer { height: 60px; order: 0; }
+        .video-row { order: 1; }
+        .hero { order: 2; }
+        .features { order: 3; }
+        #formSection { order: 4; }
+        #successBox { order: 5; }
+        .social-proof { order: 6; }
+        .usp-section { order: 7; }
+        .section-label { order: 8; }
+        .ticker { order: 9; }        .market-status { order: 10; }
+        .trades-feed { order: 11; }
+        .reviews-section { order: 12; }
+        .footer { order: 14; }
+        .value-strip, .countdown-head, .countdown-bar, .offer-tag { display: none !important; }
+
+        /* Video hero */
+        .video-row { margin: 0 -16px 20px; }
+        .video-card {
+            min-height: 0; height: min(128vw, 560px);
+            border: 0; border-radius: 0 0 24px 24px;
+            background: #0a0e18; box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        }
+        .video-card video { object-fit: contain; object-position: center; }
+        .video-badges { position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; z-index: 7; }
+        .v-live { display: inline-flex; align-items: center; gap: 5px; background: #ef4444; color: #fff; font-size: 11px; font-weight: 800; padding: 5px 9px; border-radius: 6px; letter-spacing: 0.5px; }
+        .v-live .pip { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: blink 1.4s infinite; }
+        .v-views { display: inline-flex; align-items: center; gap: 5px; color: #fff; font-size: 12px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+        .v-views svg { width: 15px; height: 15px; }
+        .video-hint {
+            left: 14px; right: 14px; bottom: 14px; border: 0;
+            border-radius: 10px; padding: 9px 12px; background: rgba(6,10,20,0.6);
+            font-size: 11px; color: #fff; display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .video-hint svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .video-card .vid-btn.unmute-center {
+            width: 64px; height: 64px; background: rgba(255,255,255,0.16);
+            border: 2px solid rgba(255,255,255,0.75); box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+        }
+        .video-controls { top: 14px; right: 14px; bottom: auto; }
+
+        /* Hero */
+        .hero { margin: 0 0 20px; padding: 6px 10px 0; background: transparent; border: 0; box-shadow: none; text-align: center; }
+        .hero h1 {
+            position: relative; padding-bottom: 18px; margin-bottom: 16px;
+            font-size: 34px; line-height: 1.12; letter-spacing: 0; color: #fff !important;
+        }
+        .hero h1 .green, .hero h1 .green a { color: #fff !important; }
+        .hero h1 .gold { color: var(--green); background: none; -webkit-text-fill-color: currentColor; animation: none; }
+        .hero h1::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 64px; height: 4px; border-radius: 2px; background: var(--green); }
+        .hero-strong { font-size: 15px; font-weight: 700; color: #e2e8f0 !important; margin-bottom: 6px; }
+        .hero p { max-width: 360px; margin: 0 auto; color: var(--ink-muted) !important; font-size: 13px !important; line-height: 1.55; }
+
+        /* Feature strip (4-up) */
+        .features {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+            margin: 0 0 22px; padding: 16px 2px;
+            background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+        }
+        .feat {
+            display: block; min-height: 0; padding: 2px 6px; text-align: center;
+            border: 0; border-right: 1px solid var(--line); background: transparent; box-shadow: none;
+        }
+        .feat:last-child { border-right: 0; }
+        .feat:active { background: transparent; transform: none; }
+        .feat-icon { width: 40px; height: 40px; margin: 0 auto 8px; background: transparent !important; }
+        .feat-icon svg { width: 24px; height: 24px; }
+        .feat .feat-text { font-size: 10px !important; line-height: 1.35; color: #8b97ad !important; }
+        .feat .feat-text strong { display: block; margin-bottom: 3px; color: #fff !important; font-size: 11px; letter-spacing: 0.2px; }
+
+        /* Form card */
+        .form-section {
+            margin-bottom: 16px; padding: 16px; border: 0; border-radius: 18px;
+            background: #fff; box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+        }
+        .form-section::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+        .form-eyebrow { text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.4px; color: #0aa35f; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .form-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #12b76a; }
+        .form-title { font-size: 21px; text-align: center; letter-spacing: 0; color: #0f172a !important; margin-bottom: 2px; }
+        .form-title::after { display: none; }
+        .form-title .hl-blue { color: var(--purple); }
+        .form-sub { text-align: center; font-size: 12px; color: #64748b; margin-bottom: 11px; }
+        .field { margin-bottom: 7px; }
+        .field input, .field select {
+            min-height: 44px; padding: 10px 12px; border: 1px solid #e6e9f2;
+            border-radius: 10px; background: #f4f6fb; color: #0f172a; font-size: 13px;
+        }
+        .field input::placeholder { color: #98a2b3; }
+        .field select { color: #0f172a; }
+        .select-wrap::after { color: #98a2b3; }
+        .field input:focus, .field select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+        .field .err { color: #dc2626; }
+        .form-section p { color: #64748b !important; }
+        .btn-register {
+            padding: 13px; border-radius: 10px; font-size: 14px;
+            background: linear-gradient(100deg, #12b76a, #0aa35f) !important;
+            box-shadow: 0 10px 20px rgba(18,183,106,0.28);
+        }
+        .form-reassure { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 9px; font-size: 11px; color: #64748b; }
+        .form-reassure svg { width: 13px; height: 13px; }
+
+        /* Success */
+        .success-box { padding: 26px 18px; }
+        .success-box h3 { color: #0f172a !important; }
+        .success-box p { color: #64748b !important; }
+        .success-box .icon { background: rgba(18,183,106,0.1); border-color: rgba(18,183,106,0.3); color: #0aa35f; }
+
+        /* Social proof */
+        .social-proof {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; margin: 0 0 24px;
+            background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+        }
+        .sp-avatars { display: flex; }
+        .sp-avatars span {
+            width: 34px; height: 34px; border-radius: 50%; margin-left: -10px;
+            border: 2px solid var(--panel); display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; color: #fff;
+        }
+        .sp-avatars span:first-child { margin-left: 0; }
+        .sp-text { flex: 1; font-size: 12px; color: #8b97ad; line-height: 1.4; }
+        .sp-text strong { color: #a78bfa; font-weight: 800; }
+        .sp-chart { width: 66px; height: 32px; flex-shrink: 0; }
+
+        /* What You'll Learn */
+        .usp-section { margin-bottom: 24px; }
+        .usp-title { font-size: 24px; text-transform: none; letter-spacing: 0; color: #fff !important; position: relative; padding-bottom: 14px; margin-bottom: 16px; }
+        .usp-title .accent { color: var(--green); }
+        .usp-title::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 56px; height: 4px; border-radius: 2px; background: var(--green); }
+        .usp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+        .usp-card.dark, .usp-card.lime { min-height: 0; padding: 18px 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel) !important; box-shadow: none; }
+        .usp-card.dark:hover, .usp-card.lime:hover { background: #131b2b !important; border-color: #2a3346; box-shadow: none; transform: none; }
+        .usp-card.dark:hover .usp-val, .usp-card.lime:hover .usp-val { color: #fff !important; }
+        .usp-card.dark:hover .usp-label, .usp-card.lime:hover .usp-label { color: #8b97ad !important; }
+        .usp-card:active { transform: scale(0.98); }
+        .usp-card .usp-icon { width: 46px; height: 46px; margin: 0 auto 10px; border-radius: 50%; }
+        .usp-card.dark .usp-icon, .usp-card.lime .usp-icon { background: rgba(124,58,237,0.14) !important; }
+        .usp-card .usp-icon svg { width: 22px; height: 22px; }
+        .usp-card .usp-val { color: #fff !important; font-size: 14px; font-weight: 800; }
+        .usp-card .usp-label { color: #8b97ad !important; font-size: 11px; margin-top: 5px; }
+
+        /* Section label */
+        .section-label { font-size: 17px; font-weight: 800; color: #fff; margin: 2px 0 10px; }
+
+        /* Webinar agenda */
+        .webinar-agenda { order: 8; margin: 0 0 24px; padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; }
+        .agenda-head { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .agenda-item { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid #172032; }
+        .agenda-item:first-of-type { padding-top: 2px; }
+        .agenda-item:last-child { border-bottom: 0; padding-bottom: 2px; }
+        .agenda-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: rgba(18,183,106,0.12); }
+        .agenda-ico.p { background: rgba(124,58,237,0.14); }
+        .agenda-ico svg { width: 20px; height: 20px; }
+        .agenda-body { flex: 1; min-width: 0; }
+        .agenda-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .agenda-title { font-size: 14px; font-weight: 700; color: #fff; }
+        .agenda-time { flex-shrink: 0; font-size: 10px; font-weight: 700; color: #12b76a; background: rgba(18,183,106,0.12); padding: 3px 8px; border-radius: 999px; }
+        .agenda-desc { font-size: 12px; color: #8b97ad; line-height: 1.45; margin-top: 3px; }
+
+        /* Live market ticker */
+        .ticker { margin: 0 -16px 8px; padding: 4px 16px 14px; }
+        .tick { min-width: 140px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel) !important; box-shadow: none; }
+        .tick:hover { transform: none; border-color: #2a3346; box-shadow: none; }
+        .tick .sym { color: #8b97ad !important; }
+        .tick .price { color: #fff !important; }
+
+        /* Market status */
+        .market-status { margin: 0 0 18px; color: #8b97ad !important; }
+        .market-status.checking { color: #93a0b8 !important; }
+        .market-status.fallback { color: #93a0b8 !important; }
+        .market-status.live { color: #12b76a !important; }
+
+        /* Live trades */
+        .trades-feed { background: var(--panel) !important; border: 1px solid var(--line); box-shadow: none; margin-bottom: 24px; }
+        .trades-feed:hover { border-color: var(--line); box-shadow: none; }
+        .trades-feed::after { background: linear-gradient(transparent, var(--bg)); }
+        .trades-feed .tf-title { color: #fff !important; }
+        .trade-item { border-bottom-color: #172032; }
+        .trade-item .ti-sym { color: #cbd5e1 !important; }
+        .trade-item .ti-price { color: #8b97ad !important; }
+        .trade-item .ti-time { color: #64748b !important; }
+        .trade-item .ti-type.buy { background: rgba(18,183,106,0.14); color: #12b76a; }
+        .trade-item .ti-type.sell { background: rgba(239,68,68,0.14); color: #ef4444; }
+
+        /* Reviews */
+        .reviews-section { margin-bottom: 22px; }
+        .review-card { background: var(--panel) !important; border: 1px solid var(--line); box-shadow: none; }
+        .review-title { color: #fff !important; }
+        .review-text { color: #8b97ad !important; }
+        .review-verified, .review-author { color: #64748b !important; }
+        .reviews-badge .rating { color: #cbd5e1 !important; }
+        .reviews-nav button { border-color: #2a3346; color: #cbd5e1; background: var(--panel); }
+        .reviews-nav button:hover { background: var(--purple); border-color: var(--purple); color: #fff; }
+
+        /* Footer */
+        .footer { padding-bottom: 16px; color: #64748b !important; }
+
+        /* Bottom bar */
+        .floating-cta {
+            left: 0; right: 0; margin: 0 auto;
+            width: calc(100% - 24px); max-width: 456px; bottom: 12px;
+            padding: 9px 12px; border-radius: 16px;
+            background: linear-gradient(100deg, #6d3bf5, #5b2fe0);
+            border-top: 0; box-shadow: 0 12px 30px rgba(91,53,245,0.4);
+            transform: translateY(160%);
+        }
+        .floating-cta.visible { transform: translateY(0); }
+        .floating-cta.hide { transform: translateY(160%); }
+        .floating-cta::before { display: none; }
+        .floating-cta-inner { max-width: 100%; gap: 10px; }
+        .fc-countdown { flex-shrink: 0; }
+        .fc-countdown .fc-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; margin-bottom: 4px; }
+        .fc-timer { display: flex; align-items: flex-start; gap: 5px; color: #fff; font-variant-numeric: tabular-nums; }
+        .fc-timer .u { text-align: center; }
+        .fc-timer .u b { font-size: 20px; font-weight: 800; line-height: 1; }
+        .fc-timer .u span { display: block; font-size: 8px; color: rgba(255,255,255,0.75); letter-spacing: 0.5px; margin-top: 2px; }
+        .fc-timer .sep { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.55); line-height: 1; }
+        .fc-divider { width: 1px; align-self: stretch; background: rgba(255,255,255,0.22); }
+        .fc-cta-col { flex: 1; display: flex; flex-direction: column; align-items: stretch; gap: 5px; min-width: 0; }
+        .fc-cta-col .fc-sub { text-align: center; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.9) !important; }
+        .floating-btn { padding: 13px 16px; border-radius: 12px; background: #fff !important; color: #5b2fe0 !important; font-size: 14px; font-weight: 800; white-space: nowrap; }
+        .floating-btn::after { display: none; }
+
+        @media (min-width: 700px) {
+            .wrapper { padding-left: 24px; padding-right: 24px; }
+            .video-row { margin-left: -24px; margin-right: -24px; }
+            .ticker { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; }
+        }
+        @media (max-width: 360px) {
+            .hero h1 { font-size: 30px; }
+            .feat .feat-text strong { font-size: 10px; }
+            .feat .feat-text { font-size: 9px !important; }
+            .fc-timer .u b { font-size: 18px; }
+            .floating-btn { padding: 12px 12px; font-size: 13px; }
+        }
+    </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '944969475125474');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=944969475125474&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="trading-bg"><canvas id="chartCanvas"></canvas></div>
+<div class="grid-overlay"></div>
+<div class="scanline"></div>
+<div class="float-prices" id="floatPrices"></div>
+
+<!-- Side-pinned market icons -->
+<div class="side-icons">
+    <!-- Left side -->
+    <div class="side-icon left" style="top:18%;opacity:0.4;animation-delay:0s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 14l4 4 4-4"/></svg></div>
+    <div class="side-icon left" style="top:45%;opacity:0.3;animation-delay:1.2s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+    <div class="side-icon left" style="top:72%;opacity:0.35;animation-delay:2.4s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+    <!-- Right side -->
+    <div class="side-icon right" style="top:25%;opacity:0.35;animation-delay:0.6s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="side-icon right" style="top:52%;opacity:0.3;animation-delay:1.8s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg></div>
+    <div class="side-icon right" style="top:78%;opacity:0.4;animation-delay:3s"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+
+<!-- Glassmorphism Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <div class="topbar">
+            <div class="logo"><a href="#" class="brand-wordmark">SikhoMarket</a></div>
+        </div>
+    </div>
+</nav>
+
+<!-- Floating Register CTA -->
+<div class="floating-cta" id="floatingCta">
+    <div class="floating-cta-inner">
+        <div class="fc-countdown">
+            <div class="fc-label">Webinar Start Aaga</div>
+            <div class="fc-timer">
+                <div class="u"><b id="cd2-h">14</b><span>MANI</span></div>
+                <div class="sep">:</div>
+                <div class="u"><b id="cd2-m">14</b><span>NIM</span></div>
+                <div class="sep">:</div>
+                <div class="u"><b id="cd2-s">36</b><span>SEC</span></div>
+            </div>
+        </div>
+        <div class="fc-divider"></div>
+        <div class="fc-cta-col">
+            <button class="floating-btn" id="floatingBtn">Free Seat Pidi →</button>
+            <div class="fc-sub">Seats Limited – Ippove Register Pannu!</div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+
+    <!-- Nav spacer -->
+    <div class="nav-spacer"></div>
+
+    <!-- Webinar Agenda -->
+    <div class="webinar-agenda anim">
+        <div class="agenda-head">Indha Free Webinar la Enna Irukku</div>
+        <div class="agenda-item">
+            <div class="agenda-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="4" x2="6" y2="20"/><rect x="4" y="8" width="4" height="7" rx="1"/><line x1="14" y1="3" x2="14" y2="21"/><rect x="12" y="6" width="4" height="9" rx="1"/></svg></div>
+            <div class="agenda-body">
+                <div class="agenda-top"><span class="agenda-title">Market Basics Simple-a</span><span class="agenda-time">15 nim</span></div>
+                <div class="agenda-desc">Charts, candles &amp; trends — confusion illama, full clarity.</div>
+            </div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-ico p"><svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/><path d="M16 7h4v4"/></svg></div>
+            <div class="agenda-body">
+                <div class="agenda-top"><span class="agenda-title">Live Buy &amp; Sell Strategy</span><span class="agenda-time">20 nim</span></div>
+                <div class="agenda-desc">Entry, exit &amp; stop-loss — real live chart la kaatuvom.</div>
+            </div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="agenda-body">
+                <div class="agenda-top"><span class="agenda-title">Risk &amp; Money Management</span><span class="agenda-time">15 nim</span></div>
+                <div class="agenda-desc">Unga capital-a protect panni, steady-a grow pannu.</div>
+            </div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-ico p"><svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <div class="agenda-body">
+                <div class="agenda-top"><span class="agenda-title">Live Q&amp;A Experts Kooda</span><span class="agenda-time">10 nim</span></div>
+                <div class="agenda-desc">Enna doubt-um kelu — live la clear panni kaatuvom.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Video -->
+    <div class="video-row anim">
+        <div class="video-card">
+            <video src="Adsreel1.mp4" muted autoplay loop playsinline preload="metadata"></video>
+            <div class="video-badges">
+                <span class="v-views"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>1.2K</span>
+            </div>
+            <div class="video-hint"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>Live Market Insights • Expert Strategies • Real Results-a Paaru</div>
+            <button class="vid-btn unmute-center" data-action="mute" title="Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+            <div class="video-controls">
+                <button class="vid-btn" data-action="play" title="Pause"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero anim">
+        <h1>Live Market Webinar<br>Muzhusa <span class="gold">FREE!</span></h1>
+    </div>
+
+    <!-- Value strip -->
+    <div class="value-strip anim">
+        <div class="col">
+            <div class="label">Webinar Fees</div>
+            <div class="val"><a href="#formSection" style="color:inherit;text-decoration:none">100% Free</a></div>
+        </div>
+        <div class="col">
+            <div class="label">Seats Limited</div>
+            <div class="val"><a href="#formSection" style="color:inherit;text-decoration:none">Innum Konjam Baaki</a></div>
+        </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-head anim">Next Free Webinar Start Aaga Pogudhu</div>
+    <div class="countdown-bar anim">
+        <div class="cd-item"><span class="n" id="cd-h">04</span><span class="l">Mani</span></div>
+        <div class="cd-item"><span class="n" id="cd-m">00</span><span class="l">Nimisham</span></div>
+        <div class="cd-item"><span class="n" id="cd-s">00</span><span class="l">Second</span></div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-section anim" id="formSection">
+        <div class="form-eyebrow">SEATS LIMITED – IPPOVE REGISTER PANNU!</div>
+        <div class="form-title">Unga <span class="hl-blue">Free Seat</span>-a Pidi</div>
+        <div class="form-sub">Keezha ulla form fill panni live webinar la join pannu</div>
+        <form id="regForm" novalidate>
+            <div class="field">
+                <input type="text" id="f-name" placeholder="Unga full name ezhudhu" required maxlength="100" autocomplete="name">
+                <div class="err">Unga Full Name Ezhudhu</div>
+            </div>
+            <div class="field">
+                <input type="tel" id="f-phone" placeholder="Mobile number kudu" required maxlength="10" inputmode="numeric" autocomplete="tel-national">
+                <div class="err">Mobile Number Kudu</div>
+            </div>
+            <div class="field">
+                <div class="select-wrap"><select id="f-language" required>
+                    <option value="" disabled selected>Language Select Pannu</option>
+                    <option value="Gujarati">Gujarati</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Telugu">Telugu</option>
+                    <option value="Malayalam">Malayalam</option>
+                    <option value="Kannada">Kannada</option>
+                    <option value="Marathi">Marathi</option>
+                    <option value="Punjabi">Punjabi</option>
+                    <option value="Other">Other</option>
+                </select></div>
+                <div class="err">Oru Language Select Pannu</div>
+            </div>
+            <div class="field">
+                <div class="select-wrap"><select id="f-exp" required>
+                    <option value="" disabled selected>Experience Select Pannu</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Expert">Expert</option>
+                </select></div>
+                <div class="err">Unga Experience Level Select Pannu</div>
+            </div>
+            <div class="field">
+                <div class="select-wrap"><select id="f-market" required>
+                    <option value="" disabled selected>Market Select Pannu</option>
+                    <option value="Stocks">Stocks</option>
+                    <option value="Forex">Forex</option>
+                    <option value="Crypto">Crypto</option>
+                    <option value="Commodities">Commodities</option>
+                    <option value="Options">Options</option>
+                    <option value="Futures">Futures</option>
+                </select></div>
+                <div class="err">Oru Market Select Pannu</div>
+            </div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.4);margin:12px 0;line-height:1.4;">Register Pannurathu moolam, Naan <span class="policy-links"><a href="terms.html" style="color:#2563eb;text-decoration:none;">Terms & Conditions</a> & <a href="privacy.html" style="color:#2563eb;text-decoration:none;">Privacy Policy</a></span></p>
+            <button type="submit" class="btn-register" id="btnSubmit">
+                <span class="btn-label">YES! Free Seat-a Pidi</span>
+                <div class="spin"></div>
+            </button>
+         
+        </form>
+    </div>
+
+    <!-- Social proof -->
+    <div class="social-proof anim">
+        <div class="sp-avatars">
+            <span style="background:linear-gradient(135deg,#f59e0b,#f97316)">R</span>
+            <span style="background:linear-gradient(135deg,#6d3bf5,#a78bfa)">P</span>
+            <span style="background:linear-gradient(135deg,#12b76a,#0aa35f)">A</span>
+            <span style="background:linear-gradient(135deg,#3b82f6,#60a5fa)">S</span>
+            <span style="background:linear-gradient(135deg,#ef4444,#f87171)">V</span>
+        </div>
+        <div class="sp-text"><strong>3,254+</strong> Traders already register pannitaanga<br>Miss pannidaadha!</div>
+        <svg class="sp-chart" viewBox="0 0 66 32" fill="none" preserveAspectRatio="none"><path d="M2 26 L14 20 L24 24 L36 12 L48 16 L64 4" stroke="#12b76a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Success -->
+    <div class="form-section success-box" id="successBox">
+        <div class="icon">✓</div>
+        <h3>Free Webinar la Seat Confirm Aachu!!</h3>
+        <p>Unga Registration Kedaichirukku. Webinar Join Link & Timing-a Enga Team Ungala Seekiram Share Pannuvanga.</p>
+    </div>
+
+    <!-- Feature strip -->
+    <div class="features">
+        <div class="feat anim"><div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49M7.76 16.24a6 6 0 010-8.49M19.07 4.93a10 10 0 010 14.14M4.93 19.07a10 10 0 010-14.14"/></svg></div><div class="feat-text"><strong>LIVE &amp; FREE</strong>100% Live Class Recorded Illa</div></div>
+        <div class="feat anim"><div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="feat-text"><strong>REAL-TIME</strong>Live Market Analysis</div></div>
+        <div class="feat anim"><div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/><path d="M16 7h4v4"/></svg></div><div class="feat-text"><strong>EXPERTS</strong>Market Pros Kitta Kathukko</div></div>
+        <div class="feat anim"><div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8S10 3 7.5 3 5 5.2 5 5.2 5.6 8 8.4 8M12 8s2-5 4.5-5S19 5.2 19 5.2 18.4 8 15.6 8"/></svg></div><div class="feat-text"><strong>BONUS</strong>Ellarukum Special Gifts</div></div>
+    </div>
+
+    <!-- What You'll Learn -->
+    <div class="usp-section anim">
+        <div class="usp-title">Enna <span class="accent">Kathukkalam?</span></div>
+        <div class="usp-grid">
+            <div class="usp-card dark">
+                <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+                <div class="usp-val">Entry &amp; Exit</div>
+                <div class="usp-label">Trade la enter, exit panna perfect timing</div>
+            </div>
+            <div class="usp-card lime">
+                <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="7"/><rect x="12" y="7" width="3" height="11"/><rect x="17" y="4" width="3" height="14"/></svg></div>
+                <div class="usp-val">Position Sizing</div>
+                <div class="usp-label">Oru trade la evlo invest pannanum</div>
+            </div>
+            <div class="usp-card dark">
+                <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M4 7h16"/><path d="M8 21h8"/><path d="M7 7l-3 5a3 3 0 006 0z"/><path d="M17 7l-3 5a3 3 0 006 0z"/></svg></div>
+                <div class="usp-val">Hedging Strategies</div>
+                <div class="usp-label">Market swings la trade-a protect pannu</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-section anim">
+        <div class="reviews-header">
+            <div class="reviews-badge">
+                <div class="tp">★ Trustpilot</div>
+                <div class="rating">5 lerndhu 4.8 Rating</div>
+            </div>
+            <div class="reviews-nav">
+                <button id="revPrev">‹</button>
+                <button id="revNext">›</button>
+            </div>
+        </div>
+        <div class="reviews-track" id="reviewsTrack">
+            <div class="review-card">
+                <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <div class="review-verified">Verified Trader</div>
+                <div class="review-title">Confusion Ellaam Clear Aachu</div>
+                <div class="review-text">Buy panrathu, exit panrathu-nu yeppovum confusion. Indha webinar la basic to advance step by step sonnadhala ippo clarity vandhirukku.</div>
+                <div class="review-author">— Rakesh Purohit • Sales Professional</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></div>
+                <div class="review-verified">Verified Trader</div>
+                <div class="review-title">Enakku Puriyum Bhasa la Class</div>
+                <div class="review-text">Short videos la half-purinjadhu. Aana ingu ennoda language la sonnadhala mudhal thadava fulla puriyudhu. Pudhusu alunga ku semma.</div>
+                <div class="review-author">— Amit Patel • Doctor</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <div class="review-verified">Verified Trader</div>
+                <div class="review-title">Knowledge oda Market Update-um Sethu</div>
+                <div class="review-text">Class la strategy mattum illa, live market update-um solranga. Adhanala theory-a real market oda connect panni purinjikka mudiyudhu.</div>
+                <div class="review-author">— Jatin Shah • Engineer</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                <div class="review-verified">Verified Trader</div>
+                <div class="review-title">Follow Panradhu Vittu Seekka Aarambichen</div>
+                <div class="review-text">Munnaadi tips-a kannai moodikittu follow pannen. Ippo naaney analyse panni decide panren. Ab Sikho, sirf follow mat karo — 100% true.</div>
+                <div class="review-author">— Yogesh Desai • IT Professional</div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></div>
+                <div class="review-verified">Verified Trader</div>
+                <div class="review-title">Zero Knowledge la Irundhu Aarambichen</div>
+                <div class="review-text">Trading pathi ondrume theriyaadhu. Free webinar la basics-la irundhu sonnadhala bayam poyiduchu. Register panradhu romba easy-a irundhuchu.</div>
+                <div class="review-author">— Nisha Modi • Finance Learner</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="footer anim">
+        <p>© SikhoMarket • Eedhu Educational Purpose ku Mattum. Eedhu Investment Advice Illa.</p>
+    </div>
+</div>
+
+<script>
+// ========== ENTRANCE ANIMATIONS ==========
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('show'), i * 80);
+            observer.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// ========== NAVBAR SCROLL BEHAVIOR ==========
+(function() {
+    const navbar = document.getElementById('navbar');
+    const floatingCta = document.getElementById('floatingCta');
+    const formSection = document.getElementById('formSection');
+    const successBox = document.getElementById('successBox');
+    let lastScroll = 0;
+    let ticking = false;
+
+    // Floating btn -> scroll to form
+    document.getElementById('floatingBtn').addEventListener('click', function() {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                const sy = window.scrollY;
+
+                // Navbar: add scrolled class + hide on scroll down
+                if (sy > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+
+                if (sy > lastScroll && sy > 120) navbar.classList.add('hidden');
+                else navbar.classList.remove('hidden');
+
+                // Floating CTA: visible from the top (on video), hide only when form is visible
+                const formRect = formSection.getBoundingClientRect();
+                const formVisible = formRect.top < window.innerHeight && formRect.bottom > 0;
+                const isSuccess = successBox.style.display === 'block';
+
+                if (!formVisible && !isSuccess) {
+                    floatingCta.classList.add('visible');
+                    floatingCta.classList.remove('hide');
+                } else {
+                    floatingCta.classList.remove('visible');
+                    floatingCta.classList.add('hide');
+                }
+
+                lastScroll = sy;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Show floating CTA immediately at the start (on video)
+    (function initCta() {
+        const formRect = formSection.getBoundingClientRect();
+        const formVisible = formRect.top < window.innerHeight && formRect.bottom > 0;
+        if (!formVisible && successBox.style.display !== 'block') {
+            floatingCta.classList.add('visible');
+        }
+    })();
+})();
+
+// ========== ANIMATED CANDLESTICK CHART ==========
+(function() {
+    const c = document.getElementById('chartCanvas');
+    const ctx = c.getContext('2d');
+    let w, h;
+    function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', () => { resize(); });
+
+    const candles = [];
+    let price = 100;
+    for (let i = 0; i < 40; i++) {
+        const o = price, cl = o + (Math.random() - 0.47) * 6;
+        candles.push({ o, c: cl, h: Math.max(o, cl) + Math.random() * 3, l: Math.min(o, cl) - Math.random() * 3 });
+        price = cl;
+    }
+
+    function addCandle() {
+        const last = candles[candles.length - 1];
+        const o = last.c, cl = o + (Math.random() - 0.48) * 5;
+        candles.push({ o, c: cl, h: Math.max(o, cl) + Math.random() * 2, l: Math.min(o, cl) - Math.random() * 2 });
+        if (candles.length > 60) candles.shift();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const minP = Math.min(...candles.map(c => c.l)) - 3;
+        const maxP = Math.max(...candles.map(c => c.h)) + 3;
+        const range = maxP - minP;
+        const cw = w / candles.length;
+        const top = h * 0.1, bot = h * 0.2, ch = h - top - bot;
+        const y = p => top + ch - ((p - minP) / range) * ch;
+
+        ctx.strokeStyle = 'rgba(17,24,39,0.08)';
+        for (let i = 0; i < 6; i++) {
+            const gy = top + (ch / 5) * i;
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+        }
+
+        candles.forEach((cd, i) => {
+            const x = i * cw + cw / 2;
+            const bull = cd.c >= cd.o;
+            ctx.strokeStyle = bull ? 'rgba(37,99,235,0.42)' : 'rgba(220,38,38,0.38)';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(x, y(cd.h)); ctx.lineTo(x, y(cd.l)); ctx.stroke();
+            ctx.fillStyle = bull ? 'rgba(37,99,235,0.25)' : 'rgba(220,38,38,0.22)';
+            const bt = y(Math.max(cd.o, cd.c)), bb = y(Math.min(cd.o, cd.c));
+            ctx.fillRect(x - cw * 0.3, bt, cw * 0.6, Math.max(bb - bt, 1));
+        });
+
+        // MA
+        ctx.strokeStyle = 'rgba(180,83,9,0.65)'; ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        candles.forEach((_, i) => {
+            let s = 0, n = 0;
+            for (let j = Math.max(0, i - 5); j <= i; j++) { s += candles[j].c; n++; }
+            const x = i * cw + cw / 2;
+            i === 0 ? ctx.moveTo(x, y(s / n)) : ctx.lineTo(x, y(s / n));
+        });
+        ctx.stroke();
+
+        const g = ctx.createLinearGradient(0, h - bot - 30, 0, h);
+        g.addColorStop(0, 'transparent'); g.addColorStop(1, '#e5e7eb');
+        ctx.fillStyle = g; ctx.fillRect(0, h - bot - 30, w, bot + 30);
+    }
+
+    function loop() { draw(); requestAnimationFrame(loop); }
+    loop();
+    setInterval(addCandle, 2000);
+})();
+
+// ========== FLOATING PRICE TAGS ==========
+(function() {
+    const container = document.getElementById('floatPrices');
+    const prices = ['₹22,456', '+1.2%', '73,890', '-0.5%', '$67,234', '₹72,100', '+2.8%', '-1.1%', '$3,412', '₹185'];
+    function spawn() {
+        const tag = document.createElement('div');
+        const isGreen = Math.random() > 0.4;
+        tag.className = 'float-tag ' + (isGreen ? 'g' : 'r');
+        tag.textContent = prices[Math.floor(Math.random() * prices.length)];
+        tag.style.left = (Math.random() * 90 + 5) + '%';
+        tag.style.animationDuration = (6 + Math.random() * 6) + 's';
+        tag.style.animationDelay = (Math.random() * 2) + 's';
+        container.appendChild(tag);
+        setTimeout(() => tag.remove(), 14000);
+    }
+    setInterval(spawn, 1500);
+    for (let i = 0; i < 5; i++) setTimeout(spawn, i * 600);
+})();
+
+// ========== LIVE MARKET DATA (No-key public feed mode) ==========
+(function() {
+    // Paste your GAS web app URL here with action=marketSnapshot
+    // Example: https://script.google.com/macros/s/XXX/exec?action=marketSnapshot
+    const MARKET_SNAPSHOT_URL = 'PASTE_MARKET_SNAPSHOT_URL_HERE';
+
+    const tickers = {
+        nifty:  { price: 22456, change: 1.24, history: [], base: 22456, currency: 'INR' },
+        sensex: { price: 73890, change: 0.87, history: [], base: 73890, currency: 'INR' },
+        btc:    { price: 84650, change: 1.52, history: [], base: 84650, currency: 'USD' },
+        eth:    { price: 1632, change: 0.93, history: [], base: 1632, currency: 'USD' },
+        gold:   { price: 2340, change: 0.45, history: [], base: 2340, currency: 'USD' }
+    };
+    const marketStatus = document.getElementById('marketStatus');
+
+    Object.keys(tickers).forEach(k => {
+        const base = tickers[k].price || 100;
+        for (let i = 0; i < 20; i++) {
+            tickers[k].history.push(base + (Math.random() - 0.5) * base * 0.01);
+        }
+    });
+
+    function fmt(n, decimals, isCrypto) {
+        if (!isCrypto && n >= 100000) return (n / 100000).toFixed(2) + 'L';
+        if (decimals === 0) return n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+        return n.toLocaleString('en-IN', { minimumFractionDigits: decimals || 2, maximumFractionDigits: decimals || 2 });
+    }
+
+    function currencyPrefix(currency) {
+        return currency === 'USD' ? '$' : '₹';
+    }
+
+    function updateUI(id, price, change, currency) {
+        const el = document.getElementById('p-' + id);
+        const cel = document.getElementById('c-' + id);
+        if (!el || !cel) return;
+        const prev = el.textContent;
+        const isCrypto = id === 'btc' || id === 'eth';
+        const prefix = currencyPrefix(currency || tickers[id].currency || 'INR');
+
+        el.textContent = prefix + fmt(price, isCrypto ? 2 : 0, isCrypto);
+        cel.textContent = (change >= 0 ? '+' : '') + Number(change || 0).toFixed(2) + '%';
+        cel.className = 'change ' + (change >= 0 ? 'up' : 'down');
+
+        const tick = el.closest('.tick');
+        if (tick && prev !== '--' && prev !== el.textContent) {
+            tick.classList.remove('flash-green', 'flash-red');
+            void tick.offsetWidth;
+            tick.classList.add(change >= 0 ? 'flash-green' : 'flash-red');
+            setTimeout(() => tick.classList.remove('flash-green', 'flash-red'), 600);
+        }
+    }
+
+    function drawMiniChart(id) {
+        const canvas = document.getElementById('mc-' + id);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * 2;
+        canvas.height = 40;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const data = tickers[id].history;
+        if (!data || data.length < 2) return;
+        const min = Math.min(...data);
+        const max = Math.max(...data);
+        const range = max - min || 1;
+        const w = canvas.width / (data.length - 1);
+        const up = data[data.length - 1] >= data[0];
+
+        ctx.beginPath();
+        data.forEach((v, i) => {
+            const x = i * w;
+            const y = canvas.height - ((v - min) / range) * (canvas.height - 4) - 2;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        const c = up ? '37,99,235' : '220,38,38';
+        grad.addColorStop(0, `rgba(${c},0.15)`);
+        grad.addColorStop(1, `rgba(${c},0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.beginPath();
+        data.forEach((v, i) => {
+            const x = i * w;
+            const y = canvas.height - ((v - min) / range) * (canvas.height - 4) - 2;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = up ? 'rgba(29,78,216,0.8)' : 'rgba(185,28,28,0.72)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+
+    function fallbackSimTick() {
+        Object.keys(tickers).forEach(id => {
+            const t = tickers[id];
+            const move = (Math.random() - 0.48) * t.base * 0.001;
+            t.price += move;
+            t.change += (Math.random() - 0.5) * 0.05;
+            t.change = Math.max(-5, Math.min(5, t.change));
+            t.history.push(t.price);
+            if (t.history.length > 20) t.history.shift();
+            updateUI(id, t.price, t.change, t.currency);
+            drawMiniChart(id);
+        });
+    }
+
+    function hasMarketUrl() {
+        return MARKET_SNAPSHOT_URL && MARKET_SNAPSHOT_URL.indexOf('PASTE_MARKET_SNAPSHOT_URL_HERE') === -1;
+    }
+
+    function setMarketStatus(mode, text) {
+        if (!marketStatus) return;
+        if (!text) {
+            marketStatus.style.display = 'none';
+            return;
+        }
+        marketStatus.style.display = 'inline-flex';
+        marketStatus.classList.remove('live', 'fallback', 'checking');
+        marketStatus.classList.add(mode);
+        marketStatus.textContent = text;
+    }
+
+    function applySnapshot(snapshot) {
+        if (!snapshot || !snapshot.symbols || !Array.isArray(snapshot.symbols)) return;
+
+        snapshot.symbols.forEach(item => {
+            if (!item || !tickers[item.id]) return;
+            const t = tickers[item.id];
+            const price = Number(item.price);
+            const change = Number(item.changePercent || 0);
+            if (!Number.isFinite(price)) return;
+
+            t.price = price;
+            t.change = Number.isFinite(change) ? change : 0;
+            t.currency = item.currency || t.currency;
+
+            if (item.history && Array.isArray(item.history) && item.history.length > 1) {
+                t.history = item.history.map(Number).filter(Number.isFinite).slice(-20);
+            } else {
+                t.history.push(price);
+                if (t.history.length > 20) t.history.shift();
+            }
+
+            updateUI(item.id, t.price, t.change, t.currency);
+            drawMiniChart(item.id);
+        });
+    }
+
+    function fetchMarketSnapshot() {
+        if (!hasMarketUrl()) return Promise.reject(new Error('Market URL not configured'));
+        return fetch(MARKET_SNAPSHOT_URL, { method: 'GET' }).then(r => {
+            if (!r.ok) throw new Error('Snapshot fetch failed');
+            return r.json();
+        });
+    }
+
+    function start() {
+        setMarketStatus('checking', 'Feed Check Aagudhu...');
+        fallbackSimTick();
+
+        if (!hasMarketUrl()) {
+            setMarketStatus('', '');
+            setInterval(fallbackSimTick, 3000);
+            return;
+        }
+
+        fetchMarketSnapshot()
+            .then(snapshot => {
+                applySnapshot(snapshot);
+                setMarketStatus('live', 'Live Feed Connect Aachiruchu');
+            })
+            .catch(() => {
+                fallbackSimTick();
+                setMarketStatus('fallback', 'Fallback Mode (Feed Varavillai)');
+            });
+
+        setInterval(() => {
+            fetchMarketSnapshot()
+                .then(snapshot => {
+                    applySnapshot(snapshot);
+                    setMarketStatus('live', 'Live Feed Connect Aachiruchu');
+                })
+                .catch(() => {
+                    fallbackSimTick();
+                    setMarketStatus('fallback', 'Fallback Mode (Feed Varavillai)');
+                });
+        }, 60000);
+    }
+
+    start();
+})();
+
+// ========== LIVE TRADES FEED ==========
+(function() {
+    const list = document.getElementById('tradesList');
+    if (!list) return;
+    const symbols = ['NIFTY', 'RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'BTC', 'ETH', 'GOLD', 'SENSEX', 'TATAMOTORS'];
+    const names = ['Rahul M.', 'Priya S.', 'Amit K.', 'Sneha R.', 'Vikram P.', 'Anita D.', 'Raj T.', 'Neha G.', 'Karan B.', 'Pooja L.'];
+
+    function addTrade() {
+        const buy = Math.random() > 0.4;
+        const sym = symbols[Math.floor(Math.random() * symbols.length)];
+        const price = (Math.random() * 50000 + 500).toFixed(2);
+        const item = document.createElement('div');
+        item.className = 'trade-item';
+        item.innerHTML = `
+            <div class="ti-left">
+                <span class="ti-type ${buy ? 'buy' : 'sell'}">${buy ? 'Vaangu' : 'Villu'}</span>
+                <span class="ti-sym">${sym}</span>
+            </div>
+            <span class="ti-price">₹${Number(price).toLocaleString('en-IN')}</span>
+            <span class="ti-time">Ippo</span>
+        `;
+        list.insertBefore(item, list.firstChild);
+        if (list.children.length > 8) list.removeChild(list.lastChild);
+    }
+
+    for (let i = 0; i < 4; i++) addTrade();
+    setInterval(addTrade, 3000);
+})();
+
+// ========== SESSION URGENCY COUNTDOWN ==========
+(function() {
+    const HOURS_WINDOW = 4;
+    const KEY = 'tb_bonus_window_deadline';
+    const now = Date.now();
+    let deadline = Number(sessionStorage.getItem(KEY));
+
+    if (!deadline || Number.isNaN(deadline) || deadline <= now) {
+        deadline = now + HOURS_WINDOW * 60 * 60 * 1000;
+        sessionStorage.setItem(KEY, String(deadline));
+    }
+
+    let lastS = -1;
+    function tick() {
+        const remaining = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+        const h = Math.floor(remaining / 3600);
+        const m = Math.floor((remaining % 3600) / 60);
+        const s = remaining % 60;
+
+        document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+        document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+        const secEl = document.getElementById('cd-s');
+        secEl.textContent = String(s).padStart(2, '0');
+
+        var h2 = document.getElementById('cd2-h'); if (h2) h2.textContent = String(h).padStart(2, '0');
+        var m2 = document.getElementById('cd2-m'); if (m2) m2.textContent = String(m).padStart(2, '0');
+        var s2 = document.getElementById('cd2-s'); if (s2) s2.textContent = String(s).padStart(2, '0');
+
+        if (s !== lastS) {
+            secEl.classList.add('tick-anim');
+            setTimeout(() => secEl.classList.remove('tick-anim'), 200);
+            lastS = s;
+        }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+})();
+
+// ========== CONFETTI ON SUCCESS ==========
+function fireConfetti() {
+    const canvas = document.getElementById('confettiCanvas');
+    canvas.style.display = 'block';
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const pieces = [];
+    const colors = ['#2563eb', '#60a5fa', '#3b82f6', '#93c5fd', '#ffffff'];
+    for (let i = 0; i < 80; i++) {
+        pieces.push({
+            x: canvas.width / 2, y: canvas.height / 2,
+            vx: (Math.random() - 0.5) * 12, vy: (Math.random() - 1) * 14,
+            w: Math.random() * 8 + 3, h: Math.random() * 4 + 2,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rot: Math.random() * 360, rv: (Math.random() - 0.5) * 10,
+            life: 1
+        });
+    }
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        pieces.forEach(p => {
+            if (p.life <= 0) return;
+            alive = true;
+            p.x += p.vx; p.y += p.vy; p.vy += 0.3;
+            p.rot += p.rv; p.life -= 0.008;
+            ctx.save();
+            ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+        });
+        if (alive) requestAnimationFrame(draw);
+        else canvas.style.display = 'none';
+    }
+    draw();
+}
+
+// ========== VIDEO CONTROLS ==========
+(function() {
+    var playIcon = '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>';
+    var pauseIcon = '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    var muteIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+    var unmuteIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>';
+    var primaryVideo = document.querySelector('.video-card video');
+    if (primaryVideo) {
+        primaryVideo.addEventListener('error', function() {
+            if (primaryVideo.src.indexOf('AdsReel2.mp4') === -1) {
+                primaryVideo.src = 'AdsReel2.mp4';
+                primaryVideo.load();
+                primaryVideo.play().catch(function() {});
+            }
+        });
+    }
+    document.querySelectorAll('.vid-btn').forEach(function(btn) {
+        var card = btn.closest('.video-card');
+        var video = card.querySelector('video');
+        if (btn.dataset.action === 'play') {
+            btn.addEventListener('click', function() {
+                if (video.paused) { video.play(); btn.innerHTML = pauseIcon; }
+                else { video.pause(); btn.innerHTML = playIcon; }
+            });
+        }
+        if (btn.dataset.action === 'mute') {
+            btn.addEventListener('click', function() {
+                video.muted = !video.muted;
+                btn.innerHTML = video.muted ? muteIcon : unmuteIcon;
+            });
+        }
+    });
+})();
+
+// ========== CLICK TO FORM (selected sections) ==========
+(function() {
+    var formSection = document.getElementById('formSection');
+    if (!formSection) return;
+
+    var scrollSelectors = [
+        '.ticker',
+        '.trades-feed',
+        '.video-row',
+        '.reviews-section',
+        '.usp-section',
+        '.hero'
+    ];
+
+    var zones = document.querySelectorAll(scrollSelectors.join(','));
+    zones.forEach(function(zone) {
+        zone.classList.add('scroll-to-form-zone');
+    });
+
+    document.addEventListener('click', function(e) {
+        // Never override external/social navigation or form controls.
+        if (e.target.closest('.social-section, .social-links a, .footer a, a[target="_blank"], .terms-row a')) return;
+        if (e.target.closest('.vid-btn, #revPrev, #revNext, form, .btn-register, .floating-btn, input, select, textarea, label')) return;
+
+        var zone = e.target.closest(scrollSelectors.join(','));
+        if (!zone) return;
+
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+})();
+
+// ========== REVIEWS CAROUSEL ==========
+(function() {
+    var track = document.getElementById('reviewsTrack');
+    if (!track) return;
+    var cardWidth = function() {
+        return track.querySelector('.review-card').offsetWidth + 12;
+    };
+    var autoScroll;
+
+    function advanceReview() {
+        var nextPosition = track.scrollLeft + cardWidth();
+        if (nextPosition >= track.scrollWidth - track.clientWidth - 4) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+        }
+    }
+
+    function startAutoScroll() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        clearInterval(autoScroll);
+        autoScroll = setInterval(advanceReview, 4500);
+    }
+
+    function pauseAutoScroll() {
+        clearInterval(autoScroll);
+    }
+
+    document.getElementById('revPrev').addEventListener('click', function() {
+        track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+        startAutoScroll();
+    });
+    document.getElementById('revNext').addEventListener('click', function() {
+        track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+        startAutoScroll();
+    });
+    track.addEventListener('mouseenter', pauseAutoScroll);
+    track.addEventListener('mouseleave', startAutoScroll);
+    track.addEventListener('touchstart', pauseAutoScroll, { passive: true });
+    track.addEventListener('touchend', startAutoScroll, { passive: true });
+    track.addEventListener('focusin', pauseAutoScroll);
+    track.addEventListener('focusout', startAutoScroll);
+    startAutoScroll();
+})();
+
+// ========== FORM ==========
+(function() {
+    const form = document.getElementById('regForm');
+    const phone = document.getElementById('f-phone');
+    const searchParams = new URLSearchParams(window.location.search || '');
+    const pageUrl = new URL(window.location.href);
+    const sourceOrigin = pageUrl.origin === 'null' ? pageUrl.protocol + '//' + (pageUrl.host || '') : pageUrl.origin;
+
+    function getParam(name) {
+        return (searchParams.get(name) || '').trim();
+    }
+
+    // Priority: query param -> global override -> fallback static webhook.
+    const WEBHOOK_URL = getParam('webhook_url') || window.WEBHOOK_URL || 'https://webhooks.integrately.com/a/webhooks/4623a7c3debf40a89aa6953a916a07b9';
+
+    const campaignContext = {
+        campaignUrl: pageUrl.href,
+        landingPath: pageUrl.pathname,
+        pageOrigin: pageUrl.origin,
+        pageHost: pageUrl.hostname,
+        referrer: document.referrer || '',
+        utmSource: getParam('utm_source'),
+        utmMedium: getParam('utm_medium'),
+        utmCampaign: getParam('utm_campaign'),
+        utmTerm: getParam('utm_term'),
+        utmContent: getParam('utm_content')
+    };
+    function validatePhoneOnType() {
+        const numericValue = phone.value.replace(/\D/g, '');
+        phone.value = numericValue.slice(0, 10);
+        const field = phone.closest('.field');
+        if (field) field.classList.remove('invalid');
+    }
+
+    phone.addEventListener('input', validatePhoneOnType);
+    phone.addEventListener('blur', validatePhoneOnType);
+
+    // Strip numbers and special characters from name field (allow only letters and spaces)
+    var nameField = document.getElementById('f-name');
+    nameField.addEventListener('input', function() {
+        nameField.value = nameField.value.replace(/[^a-zA-Z\s]/g, '');
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let ok = true;
+        document.querySelectorAll('.field').forEach(f => f.classList.remove('invalid'));
+        if (!document.getElementById('f-name').value.trim() || document.getElementById('f-name').value.trim().length < 2 || /[^a-zA-Z\s]/.test(document.getElementById('f-name').value)) {
+            document.getElementById('f-name').closest('.field').classList.add('invalid'); ok = false;
+        }
+        if (!phone.value.trim()) { phone.closest('.field').classList.add('invalid'); ok = false; }
+        if (!document.getElementById('f-language').value) { document.getElementById('f-language').closest('.field').classList.add('invalid'); ok = false; }
+        if (!document.getElementById('f-exp').value) { document.getElementById('f-exp').closest('.field').classList.add('invalid'); ok = false; }
+        if (!document.getElementById('f-market').value) { document.getElementById('f-market').closest('.field').classList.add('invalid'); ok = false; }
+        // Terms & Conditions checkbox is OPTIONAL — we just capture the value below.
+        if (!ok) return;
+
+        const btn = document.getElementById('btnSubmit');
+        btn.disabled = true;
+        btn.querySelector('.btn-label').style.display = 'none';
+        btn.querySelector('.spin').style.display = 'block';
+
+        const formData = {
+            name: document.getElementById('f-name').value.trim(),
+            phone: phone.value,
+            language: document.getElementById('f-language').value,
+            experience: document.getElementById('f-exp').value,
+            market: document.getElementById('f-market').value,
+            termsAccepted: true,
+            timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+            submittedAtIso: new Date().toISOString(),
+            // Dynamic source/campaign info — captured live from the visitor's URL.
+            pageUrl: campaignContext.campaignUrl,
+            pageTitle: document.title,
+            sourcePage: sourceOrigin,
+            sourceHost: campaignContext.pageHost,
+            landingPath: campaignContext.landingPath,
+            referrer: campaignContext.referrer,
+            userAgent: navigator.userAgent,
+            // UTM / campaign parameters (forwarded to webhook).
+            campaignUrl: campaignContext.campaignUrl,
+            utmSource: campaignContext.utmSource,
+            utmMedium: campaignContext.utmMedium,
+            utmCampaign: campaignContext.utmCampaign,
+            utmTerm: campaignContext.utmTerm,
+            utmContent: campaignContext.utmContent
+        };
+
+        if (!WEBHOOK_URL || WEBHOOK_URL.indexOf('PASTE_INTEGRATELY_WEBHOOK_URL_HERE') !== -1) {
+            alert('Live Pogum Munnaadi index.html la Integrately webhook URL Serukko.');
+            btn.disabled = false;
+            btn.querySelector('.btn-label').style.display = 'inline';
+            btn.querySelector('.spin').style.display = 'none';
+            return;
+        }
+
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(function(response) {
+            if (!response.ok) {
+                throw new Error('Webhook submission failed');
+            }
+            window.location.href = new URL('thankyou.html', window.location.href).toString();
+        }).catch(function() {
+            alert('Submission Fail Aachiruchu. Thayavu Seidhu Mendum Try Pannu.');
+            btn.disabled = false;
+            btn.querySelector('.btn-label').style.display = 'inline';
+            btn.querySelector('.spin').style.display = 'none';
+        });
+    });
+})();
+</script>
+</body>
+</html>
