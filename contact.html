@@ -7,12 +7,15 @@
   <meta name="description" content="Get in touch with Sikho Market — webinar queries, trainer partnerships, support and feedback." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="contact-page">
 
   <header class="site-header">
     <div class="container">
       <nav class="nav">
-        <a href="index.html" class="brand"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span> <span class="brand-text"><span class="name">Sikho<span class="accent">Market</span></span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span></a>
+        <a href="index.html" class="brand">
+          <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
+          <span class="brand-text"><span class="name">Sikho<span class="accent">Market</span></span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+        </a>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -20,47 +23,115 @@
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="contact.html" class="active">Contact Us</a></li>
         </ul>
-        <div class="nav-cta"><button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button></div>
+        <div class="nav-cta">
+          <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
       </nav>
     </div>
   </header>
 
-  <section class="page-banner">
+  <section class="page-banner contact-hero">
     <div class="container">
-      <h1>Contact Us</h1>
+      <div class="contact-hero-inner">
+        <div class="contact-hero-copy">
+          <span>Contact Sikho Market</span>
+          <h1>Talk to someone who can help.</h1>
+          <p>Webinar questions, trainer partnerships, and technical support — usually answered within one business day.</p>
+          <div class="contact-hero-actions">
+            <a href="#write" class="btn btn-light">Write a message</a>
+            <a href="#faq" class="btn btn-ghost">Browse FAQs</a>
+          </div>
+        </div>
+        <aside class="contact-hero-panel" aria-label="How we respond">
+          <div class="contact-hero-stat">
+            <strong>1 day</strong>
+            <span>Typical reply time on weekdays</span>
+          </div>
+          <div class="contact-hero-stat">
+            <strong>Mon–Sat</strong>
+            <span>10:00 AM – 6:30 PM IST</span>
+          </div>
+          <div class="contact-hero-stat">
+            <strong>6 languages</strong>
+            <span>English, Hindi, Tamil, Telugu, Kannada, Gujarati</span>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section contact-main" id="write">
     <div class="container">
-      <div class="section-head" style="margin-bottom:36px;">
-        <p style="font-size:18px;color:var(--gray-600);">Have a question about an upcoming webinar, want to become a trainer, or need help with your registration? We're here to help.</p>
-      </div>
+      <div class="contact-layout">
+        <aside class="contact-aside">
+          <span class="kicker">Reach us</span>
+          <h2>Pick a channel, or send a note.</h2>
+          <p>Choose what you need help with. We will route your message to the right person.</p>
 
-      <div class="contact-grid">
-        <div class="contact-form-area">
-          <div class="support-hours">
-            <strong>Support Hours:</strong> Monday-Saturday, 10:00 AM - 6:30 PM
+          <div class="contact-channels">
+            <a class="contact-channel" href="mailto:support@yourbrand.com">
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+              </span>
+              <span>
+                <strong>Email</strong>
+                <em>support@yourbrand.com</em>
+              </span>
+            </a>
+            <div class="contact-channel">
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </span>
+              <span>
+                <strong>Support hours</strong>
+                <em>Monday–Saturday, 10:00 AM – 6:30 PM</em>
+              </span>
+            </div>
+            <div class="contact-channel">
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+              </span>
+              <span>
+                <strong>Preferred language</strong>
+                <em>Tell us yours on the form — we reply in it when we can</em>
+              </span>
+            </div>
           </div>
+
+          <div class="contact-topics" aria-label="Common reasons">
+            <p>Common reasons</p>
+            <button type="button" data-subject="Webinar query">Webinar query</button>
+            <button type="button" data-subject="Become a trainer">Become a trainer</button>
+            <button type="button" data-subject="Technical issue">Technical issue</button>
+            <button type="button" data-subject="Feedback">Feedback</button>
+            <button type="button" data-subject="Other">Something else</button>
+          </div>
+        </aside>
+
+        <div class="contact-form-area">
           <form class="contact-form" id="contactForm">
+            <div class="contact-form-head">
+              <h3>Send a message</h3>
+              <p>Required fields are marked. We never share your details with third parties for marketing.</p>
+            </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="fullName">Full Name *</label>
-                <input type="text" id="fullName" placeholder="Your full name" required />
+                <label for="fullName">Full name *</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Your full name" required autocomplete="name" />
               </div>
               <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" placeholder="you@example.com" required />
+                <label for="email">Email address *</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required />
+                <label for="phone">Phone number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required autocomplete="tel" />
               </div>
               <div class="form-group">
-                <label for="language">Preferred Language</label>
-                <select id="language">
+                <label for="language">Preferred language</label>
+                <select id="language" name="language">
                   <option value="English">English</option>
                   <option value="Hindi">Hindi</option>
                   <option value="Tamil">Tamil</option>
@@ -71,8 +142,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="subject">Subject / Reason for Contact</label>
-              <select id="subject">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject">
                 <option value="Webinar query">Webinar query</option>
                 <option value="Become a trainer">Become a trainer</option>
                 <option value="Technical issue">Technical issue</option>
@@ -82,17 +153,69 @@
             </div>
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" placeholder="How can we help you?"></textarea>
+              <textarea id="message" name="message" placeholder="Share a few details so we can help faster."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+            <button type="submit" class="btn btn-primary contact-submit">Send message</button>
             <span class="form-note" id="formStatus">We usually respond within one business day.</span>
           </form>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Map -->
-      <div class="map-embed" style="margin-top:44px;">
-        <iframe title="Office Location" src="https://www.google.com/maps?q=India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <section class="section alt contact-faq" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Quick answers</span>
+        <h2>Before you write</h2>
+        <p>These cover the questions we hear most often.</p>
+      </div>
+      <div class="contact-faq-list">
+        <details class="legal-acc" open>
+          <summary>How do I book a free webinar seat?</summary>
+          <div class="legal-acc-body">
+            <p>Open the home page, choose your language, and tap Book Free Seat on the session you want. Tamil sessions go to a dedicated booking page; other languages can be confirmed through this form if a booking page is not yet live.</p>
+          </div>
+        </details>
+        <details class="legal-acc">
+          <summary>When will I get a reply?</summary>
+          <div class="legal-acc-body">
+            <p>Support is available Monday to Saturday, 10:00 AM – 6:30 PM IST. Most messages get a response within one business day. Messages sent on Sunday are handled the next working day.</p>
+          </div>
+        </details>
+        <details class="legal-acc">
+          <summary>Can I join in my own language?</summary>
+          <div class="legal-acc-body">
+            <p>Yes. Sessions run in English, Hindi, Tamil, Telugu, Kannada and Gujarati. Mention your preferred language on the form so we can reply in the one you are most comfortable with.</p>
+          </div>
+        </details>
+        <details class="legal-acc">
+          <summary>How do I apply to become a trainer?</summary>
+          <div class="legal-acc-body">
+            <p>Select Become a trainer as the subject, tell us your topic and language, and include a short note about your experience. Our partnerships team will follow up if there is a fit.</p>
+          </div>
+        </details>
+        <details class="legal-acc">
+          <summary>I have a technical issue during a live session.</summary>
+          <div class="legal-acc-body">
+            <p>Choose Technical issue and include the webinar name, time, and what you saw on screen. If you are in a live session, mention that in the first line so we can prioritise it.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-map">
+    <div class="container">
+      <div class="contact-map-card">
+        <div class="contact-map-copy">
+          <span class="kicker">Location</span>
+          <h2>Serving learners across India</h2>
+          <p>Our team supports webinars nationwide. Use the form for the fastest reply — we do not take walk-in appointments.</p>
+        </div>
+        <div class="map-embed">
+          <iframe title="Office Location" src="https://www.google.com/maps?q=India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -104,6 +227,7 @@
           <a href="index.html" class="brand"><span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span><span class="brand-text"><span class="name">Sikho Market</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span></a>
           <p>Free live webinars in all regional languages, led by verified subject-matter experts. Learn, practice and grow — in the language you understand best.</p>
         </div>
+        <div class="footer-links">
         <div class="footer-col">
           <h4>Languages</h4>
           <a href="index.html?lang=Hindi#webinars">Hindi Webinars</a>
@@ -119,11 +243,6 @@
           <a href="about.html">About Us</a>
           <a href="contact.html">Contact Us</a>
         </div>
-        <div class="footer-col">
-          <h4>Support</h4>
-          <a href="contact.html">Help Center</a>
-          <a href="contact.html">support@yourbrand.com</a>
-          <a href="contact.html">Become a Trainer</a>
         </div>
       </div>
       <div class="footer-bottom">

@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
   if (searchInput) {
     searchInput.addEventListener("input", function () {
       var q = this.value.toLowerCase();
-      document.querySelectorAll("[data-tab-panel]:not(.hidden) tbody tr").forEach(function (tr) {
-        var text = tr.textContent.toLowerCase();
-        tr.style.display = text.indexOf(q) > -1 ? "" : "none";
+      document.querySelectorAll("[data-tab-panel]:not(.hidden) .schedule-item").forEach(function (item) {
+        var text = item.textContent.toLowerCase();
+        item.style.display = text.indexOf(q) > -1 ? "" : "none";
       });
     });
   }
@@ -112,6 +112,79 @@ document.addEventListener("DOMContentLoaded", function () {
   wireForm("#contactForm", "#formStatus", "Thank you! Your message has been received. We'll get back to you soon.");
   wireForm("#subscribeForm", "#subscribeStatus", "You're subscribed! We'll notify you when new webinars go live.");
   wireForm("#trainerForm", "#trainerStatus", "Thanks for your interest! Our team will reach out shortly.");
+
+  /* ---- Reach statistics count-up ---- */
+  var reachStats = document.querySelectorAll(".about-reach [data-count]");
+  if (reachStats.length && "IntersectionObserver" in window) {
+    var statsStarted = false;
+    var countObserver = new IntersectionObserver(function (entries, observer) {
+      if (!entries[0].isIntersecting || statsStarted) return;
+      statsStarted = true;
+      observer.disconnect();
+      reachStats.forEach(function (stat) {
+        var target = Number(stat.getAttribute("data-count"));
+        var suffix = stat.getAttribute("data-suffix") || "";
+        var decimals = Number(stat.getAttribute("data-decimals")) || 0;
+        var startTime;
+        function update(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / 1100, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var value = target * eased;
+          stat.textContent = (decimals ? value.toFixed(decimals) : Math.round(value).toLocaleString("en-IN")) + suffix;
+          if (progress < 1) window.requestAnimationFrame(update);
+        }
+        window.requestAnimationFrame(update);
+      });
+    }, { threshold: 0.35 });
+    countObserver.observe(reachStats[0].closest(".stats-grid"));
+  }
+
+  /* ---- Testimonial carousel ---- */
+  var carousel = document.querySelector(".testi-carousel");
+  if (carousel) {
+    var track = carousel.querySelector(".testi-grid");
+    var slides = carousel.querySelectorAll(".testi-card");
+    var dots = carousel.querySelector(".testi-dots");
+    var previous = carousel.querySelector(".testi-prev");
+    var next = carousel.querySelector(".testi-next");
+    var currentSlide = 0;
+    var timer;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    slides.forEach(function (_, index) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "Show testimonial " + (index + 1));
+      dot.addEventListener("click", function () { showSlide(index); });
+      dots.appendChild(dot);
+    });
+
+    function showSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+      var slideWidth = slides[0].getBoundingClientRect().width;
+      var gap = parseFloat(window.getComputedStyle(track).gap) || 0;
+      track.style.transform = "translateX(-" + (currentSlide * (slideWidth + gap)) + "px)";
+      dots.querySelectorAll("button").forEach(function (dot, dotIndex) {
+        dot.classList.toggle("active", dotIndex === currentSlide);
+      });
+    }
+
+    function startRotation() {
+      if (!reduceMotion) timer = window.setInterval(function () { showSlide(currentSlide + 1); }, 5000);
+    }
+    function stopRotation() { window.clearInterval(timer); }
+
+    previous.addEventListener("click", function () { stopRotation(); showSlide(currentSlide - 1); startRotation(); });
+    next.addEventListener("click", function () { stopRotation(); showSlide(currentSlide + 1); startRotation(); });
+    carousel.addEventListener("mouseenter", stopRotation);
+    carousel.addEventListener("mouseleave", startRotation);
+    carousel.addEventListener("focusin", stopRotation);
+    carousel.addEventListener("focusout", startRotation);
+    window.addEventListener("resize", function () { showSlide(currentSlide); });
+    showSlide(0);
+    startRotation();
+  }
 
   /* ---- Footer year ---- */
   var yearEl = document.querySelector("#year");
