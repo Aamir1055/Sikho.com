@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Stock Market Course â€” Sikho Market</title>
+  <meta name="description" content="Advanced course â€” futures, options, the Greeks, options strategies, risk management, position sizing, hedging, portfolio construction and trading psychology." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="brand">
+          <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
+          <span class="brand-text"><span class="name">SikhoMarket</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html"><span data-i18n="nav.home">Home</span></a></li>
+          <li><a href="about.html"><span data-i18n="nav.about">About Us</span></a></li>
+          <li><a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a></li>
+          <li><a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a></li>
+          <li><a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a></li>
+        </ul>
+        <div class="nav-cta"><div class="lang-switch">
+            <button class="lang-switch-toggle" aria-label="Change language">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+              <span data-lang-current class="lang-label-full">English</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="lang-switch-menu notranslate">
+              <a data-set-lang="en">English</a>
+              <a data-set-lang="hi">Hindi (हिंदी)</a>
+              <a data-set-lang="ta">Tamil (தமிழ்)</a>
+              <a data-set-lang="te">Telugu (తెలుగు)</a>
+              <a data-set-lang="kn">Kannada (ಕನ್ನಡ)</a>
+              <a data-set-lang="gu">Gujarati (ગુજરાતી)</a>
+            </div>
+          </div>
+          <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button></div>
+      </nav>
+    </div>
+  </header>
+
+  <div id="gateContent" data-course="Advanced">
+    <button class="side-toggle" id="sideToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Topics</button>
+    <div class="tutorial">
+
+      <aside class="tut-sidebar">
+        <div class="side-title">Advanced Course</div>
+        <div class="side-group">
+          <span>Derivatives</span>
+          <a href="#intro">Introduction</a>
+          <a href="#derivatives">What Are Derivatives?</a>
+          <a href="#futures">Futures Contracts</a>
+          <a href="#options">Options: Calls &amp; Puts</a>
+          <a href="#premium">Premium &amp; Value</a>
+        </div>
+        <div class="side-group">
+          <span>Options Deep Dive</span>
+          <a href="#greeks">The Option Greeks</a>
+          <a href="#moneyness">Moneyness</a>
+          <a href="#strategies">Options Strategies</a>
+          <a href="#advanced-strats">Spreads &amp; Straddles</a>
+        </div>
+        <div class="side-group">
+          <span>Risk &amp; Capital</span>
+          <a href="#position-sizing">Position Sizing</a>
+          <a href="#risk-mgmt">Risk Management</a>
+          <a href="#hedging">Hedging</a>
+        </div>
+        <div class="side-group">
+          <span>The Professional Edge</span>
+          <a href="#portfolio">Portfolio Construction</a>
+          <a href="#psychology">Trading Psychology</a>
+          <a href="#journal">Trading Journal</a>
+        </div>
+      </aside>
+
+      <main class="tut-main">
+        <p class="tut-crumbs"><a href="index.html"><span data-i18n="nav.home">Home</span></a> / <a href="index.html#learn">Learn</a> / Advanced</p>
+        <h1>Advanced Stock Market Course</h1>
+        <p class="tut-lead">Derivatives, professional strategies, and the risk discipline that keeps you in the game.</p>
+
+        <section class="lesson" id="intro">
+          <h2>Introduction</h2>
+          <p>This track goes beyond buying shares into <strong>derivatives</strong> and professional risk management. These tools use <strong>leverage</strong>, which can multiply both gains and losses â€” so discipline matters more here than anywhere else.</p>
+          <div class="box box-warn"><div class="box-title">Important</div>Derivatives are high-risk. Never trade with money you can't afford to lose, and start small while you learn.</div>
+        </section>
+
+        <section class="lesson" id="derivatives">
+          <h2>What Are Derivatives?</h2>
+          <p>A <strong>derivative</strong> is a contract whose value is <em>derived</em> from an underlying asset â€” usually a stock or an index like Nifty. The two main types traded in India are <strong>futures</strong> and <strong>options</strong>.</p>
+          <div class="box box-def"><div class="box-title">Definition</div>You don't own the underlying asset â€” you own a contract that gains or loses value as the asset's price moves.</div>
+          <div class="key-take"><strong>Key takeaway:</strong> Derivatives let you hedge risk or speculate with leverage.</div>
+        </section>
+
+        <section class="lesson" id="futures">
+          <h2>Futures Contracts</h2>
+          <p>A <strong>future</strong> is an agreement to buy or sell an asset at a fixed price on a fixed future date. Both parties are obligated to honour it. Profit and loss move point-for-point with the price, and you post a <strong>margin</strong> (a fraction of the full value) to trade.</p>
+          <div class="box box-example"><div class="box-title">Example</div>You buy 1 Nifty future at 22,000. If Nifty rises to 22,200, you gain 200 points Ã— lot size. If it falls to 21,800, you lose the same â€” losses can exceed your initial margin.</div>
+          <div class="box box-warn"><div class="box-title">Caution</div>Futures carry unlimited risk in both directions. Always use a strict stop-loss.</div>
+        </section>
+
+        <section class="lesson" id="options">
+          <h2>Options: Calls &amp; Puts</h2>
+          <p>An <strong>option</strong> gives the right â€” but not the obligation â€” to trade at a set <strong>strike price</strong> before expiry.</p>
+          <table class="tut-table">
+            <thead><tr><th>Type</th><th>Right to</th><th>You buy it when you expect</th></tr></thead>
+            <tbody>
+              <tr><td>Call</td><td>Buy the asset</td><td>Price to rise</td></tr>
+              <tr><td>Put</td><td>Sell the asset</td><td>Price to fall</td></tr>
+            </tbody>
+          </table>
+          <div class="chart">
+            <svg viewBox="0 0 400 160" role="img" aria-label="Call option payoff">
+              <line x1="30" y1="120" x2="380" y2="120" stroke="#94a3b8" stroke-width="1"/>
+              <line x1="30" y1="10" x2="30" y2="120" stroke="#94a3b8" stroke-width="1"/>
+              <polyline points="30,90 200,90 375,20" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linejoin="round"/>
+              <line x1="200" y1="10" x2="200" y2="120" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4"/>
+              <text x="200" y="135" text-anchor="middle" font-size="10" fill="#64748b">Strike price</text>
+            </svg>
+            <div class="chart-label">Call payoff: loss is limited to the premium; profit grows above the strike.</div>
+          </div>
+          <div class="key-take"><strong>Key takeaway:</strong> Option buyers have limited risk; option sellers have limited reward but large risk.</div>
+        </section>
+
+        <section class="lesson" id="premium">
+          <h2>Premium: Intrinsic &amp; Time Value</h2>
+          <p>The <strong>premium</strong> is what you pay to hold an option. It has two parts:</p>
+          <ul>
+            <li><strong>Intrinsic value:</strong> how much the option is already "in the money."</li>
+            <li><strong>Time value:</strong> the extra amount paid for the time left until expiry.</li>
+          </ul>
+          <p>Time value shrinks as expiry approaches â€” this is called <strong>time decay</strong>.</p>
+          <div class="key-take"><strong>Key takeaway:</strong> Options are decaying assets â€” time works against the buyer.</div>
+        </section>
+
+        <section class="lesson" id="greeks">
+          <h2>The Option Greeks</h2>
+          <p>The <strong>Greeks</strong> measure how an option's price reacts to different changes:</p>
+          <table class="tut-table">
+            <thead><tr><th>Greek</th><th>Measures sensitivity to</th></tr></thead>
+            <tbody>
+              <tr><td>Delta</td><td>The underlying's price move</td></tr>
+              <tr><td>Gamma</td><td>How fast Delta itself changes</td></tr>
+              <tr><td>Theta</td><td>Time decay (daily loss)</td></tr>
+              <tr><td>Vega</td><td>Changes in volatility</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-note"><div class="box-title">Note</div>Theta quietly eats into every option buyer's position each day, especially near expiry.</div>
+          <div class="key-take"><strong>Key takeaway:</strong> Understand Delta and Theta before trading options.</div>
+        </section>
+
+        <section class="lesson" id="moneyness">
+          <h2>Moneyness â€” ITM, ATM, OTM</h2>
+          <p>These terms describe where the strike is relative to the current price:</p>
+          <ul>
+            <li><strong>ITM (In The Money):</strong> already has intrinsic value.</li>
+            <li><strong>ATM (At The Money):</strong> strike â‰ˆ current price.</li>
+            <li><strong>OTM (Out of The Money):</strong> no intrinsic value yet â€” only time value.</li>
+          </ul>
+          <div class="box box-tip"><div class="box-title">Tip</div>OTM options are cheap but often expire worthless. They are lottery-like â€” size them carefully.</div>
+        </section>
+
+        <section class="lesson" id="strategies">
+          <h2>Core Options Strategies</h2>
+          <p>Combine options with shares to match your view while controlling risk:</p>
+          <ul>
+            <li><strong>Covered call:</strong> sell a call against shares you own to earn income.</li>
+            <li><strong>Protective put:</strong> buy a put to insure a holding against a fall.</li>
+            <li><strong>Cash-secured put:</strong> get paid to potentially buy a stock lower.</li>
+          </ul>
+          <div class="key-take"><strong>Key takeaway:</strong> Prefer defined-risk strategies over naked option selling.</div>
+        </section>
+
+        <section class="lesson" id="advanced-strats">
+          <h2>Spreads &amp; Straddles</h2>
+          <p>More advanced combinations let you bet on direction <em>and</em> volatility with controlled risk:</p>
+          <ul>
+            <li><strong>Bull call spread:</strong> buy a call and sell a higher call â€” cheaper, defined risk/reward.</li>
+            <li><strong>Straddle:</strong> buy a call and a put at the same strike â€” profits from a big move either way.</li>
+            <li><strong>Iron condor:</strong> profits when price stays in a range.</li>
+          </ul>
+          <div class="box box-warn"><div class="box-title">Caution</div>Multi-leg strategies have more moving parts and charges. Master single legs first.</div>
+          <div class="key-take"><strong>Key takeaway:</strong> Match the strategy to your view on direction <em>and</em> volatility.</div>
+        </section>
+
+        <section class="lesson" id="position-sizing">
+          <h2>Position Sizing</h2>
+          <p>How much you risk per trade matters more than being right. A common professional rule is to risk only <strong>1â€“2%</strong> of your capital on any single trade, so no one loss can seriously hurt you.</p>
+          <div class="chart">
+            <svg viewBox="0 0 400 160" role="img" aria-label="Risk control comparison">
+              <line x1="30" y1="140" x2="380" y2="140" stroke="#94a3b8" stroke-width="1"/>
+              <polyline points="30,60 90,70 150,50 210,80 270,55 330,40 375,30" fill="none" stroke="#16a34a" stroke-width="3" stroke-linejoin="round"/>
+              <polyline points="30,60 90,90 150,80 210,120 270,110 330,130 375,125" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round"/>
+              <text x="375" y="26" text-anchor="end" font-size="10" fill="#16a34a">Controlled risk</text>
+              <text x="375" y="140" text-anchor="end" font-size="10" fill="#dc2626">Over-leveraged</text>
+            </svg>
+            <div class="chart-label">Controlled risk compounds; over-leverage destroys capital.</div>
+          </div>
+          <div class="key-take"><strong>Key takeaway:</strong> Survive first. Position sizing keeps you alive.</div>
+        </section>
+
+        <section class="lesson" id="risk-mgmt">
+          <h2>Risk Management &amp; Stop-Losses</h2>
+          <p>Always define your exit <em>before</em> you enter:</p>
+          <ul>
+            <li>Set a stop-loss on every trade.</li>
+            <li>Target a <strong>risk-to-reward</strong> of at least 1:2.</li>
+            <li>Never move a stop-loss further away out of hope.</li>
+          </ul>
+          <div class="box box-example"><div class="box-title">Example</div>Risk â‚¹1,000 to make â‚¹2,000. Even if only half your trades win, you still come out ahead.</div>
+          <div class="key-take"><strong>Key takeaway:</strong> Cut losses quickly; let winners run.</div>
+        </section>
+
+        <section class="lesson" id="hedging">
+          <h2>Hedging Your Portfolio</h2>
+          <p><strong>Hedging</strong> reduces risk â€” for example buying index puts to protect a portfolio during uncertain times. It costs a little, like insurance, but limits large drawdowns.</p>
+          <div class="key-take"><strong>Key takeaway:</strong> A small hedging cost can prevent a big, painful loss.</div>
+        </section>
+
+        <section class="lesson" id="portfolio">
+          <h2>Portfolio Construction &amp; Diversification</h2>
+          <p>Build a portfolio across sectors and asset types so a single bad bet can't sink you. Decide your allocation (e.g. large-cap, mid-cap, cash) and <strong>rebalance</strong> periodically to keep risk aligned with your goals.</p>
+          <div class="key-take"><strong>Key takeaway:</strong> Diversification is the only free lunch in investing.</div>
+        </section>
+
+        <section class="lesson" id="psychology">
+          <h2>Trading Psychology</h2>
+          <p>Your mindset is your biggest edge â€” or your worst enemy. Fear and greed cause most losses. The market is designed to trigger emotional decisions; your job is to stay rule-based.</p>
+          <ul>
+            <li>Accept small losses without ego.</li>
+            <li>Don't overtrade or revenge-trade after a loss.</li>
+            <li>Follow your plan even when it's boring.</li>
+          </ul>
+          <div class="key-take"><strong>Key takeaway:</strong> Discipline beats intelligence in the markets.</div>
+        </section>
+
+        <section class="lesson" id="journal">
+          <h2>Keeping a Trading Journal</h2>
+          <p>Record every trade â€” entry, exit, reason, and outcome. Reviewing your journal weekly reveals patterns in your wins and mistakes, and turns experience into skill faster than anything else.</p>
+          <div class="box box-tip"><div class="box-title">Tip</div>Note <em>why</em> you entered each trade. Over time you'll spot which setups actually make you money.</div>
+          <div class="key-take"><strong>Key takeaway:</strong> What gets measured gets improved.</div>
+
+          <div class="tut-pager">
+            <a href="learn-intermediate.html">&larr; Intermediate</a>
+            <a href="index.html#webinars">Browse live webinars &rarr;</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
+            <span class="brand-text"><span class="name">Sikho Market</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+          </a>
+          <p>Free live webinars and structured courses to help you learn the market with confidence.</p>
+        </div>
+        <div class="footer-col"><h4>Learn</h4><a href="learn-beginner.html">Beginner</a><a href="learn-intermediate.html">Intermediate</a><a href="learn-advanced.html">Advanced</a></div>
+        <div class="footer-col"><h4>Legal</h4><a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a><a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a><a href="about.html"><span data-i18n="nav.about">About Us</span></a><a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a></div>
+        <div class="footer-col"><h4>Support</h4><a href="contact.html">Help Center</a><a href="contact.html">support@yourbrand.com</a><a href="contact.html">Become a Trainer</a></div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Sikho Market. All rights reserved.</span>
+        <span data-i18n="footer.educationalDisclaimer">Educational content only. Nothing here is financial, investment, legal, or tax advice. Markets involve risk, and you are responsible for your own decisions. Consult a qualified professional before investing.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/learn-gate.js"></script>  <script src="js/i18n.js"></script>
+</body>
+</html>

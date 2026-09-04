@@ -15,16 +15,31 @@
       <nav class="nav">
         <a href="index.html" class="brand">
           <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
-          <span class="brand-text"><span class="name">Sikho<span class="accent">Market</span></span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+          <span class="brand-text"><span class="name">SikhoMarket</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
         </a>
         <ul class="nav-links">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html" class="active"><span data-i18n="nav.home">Home</span></a></li>
+          <li><a href="about.html"><span data-i18n="nav.about">About Us</span></a></li>
+          <li><a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a></li>
+          <li><a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a></li>
+          <li><a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a></li>
         </ul>
         <div class="nav-cta">
+          <div class="lang-switch">
+            <button class="lang-switch-toggle" aria-label="Change language">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+              <span data-lang-current class="lang-label-full">English</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="lang-switch-menu notranslate">
+              <a data-set-lang="en">English</a>
+              <a data-set-lang="hi">Hindi (हिंदी)</a>
+              <a data-set-lang="ta">Tamil (தமிழ்)</a>
+              <a data-set-lang="te">Telugu (తెలుగు)</a>
+              <a data-set-lang="kn">Kannada (ಕನ್ನಡ)</a>
+              <a data-set-lang="gu">Gujarati (ગુજરાતી)</a>
+            </div>
+          </div>
           <button class="menu-toggle" aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
@@ -36,27 +51,101 @@
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="container hero-content">
-      <span class="hero-kicker"><span></span> Learn live. Learn free.</span>
-      <h1>Learn the market in <strong>your language.</strong></h1>
-      <p class="subtitle">Practical, expert-led webinars for every stage of your investing journey.</p>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hero-kicker"><span></span> <span data-i18n="hero.kicker">Learn live. Learn free.</span></span>
+          <h1><span data-i18n="hero.title1">Learn the market</span> <strong data-i18n="hero.title2">in your language.</strong></h1>
+          <p class="subtitle" data-i18n="hero.subtitle">Practical, expert-led webinars for every stage of your investing journey.</p>
 
-      <div class="hero-usp" aria-label="Sikho Market benefits">
-        <div><strong>100% Free</strong><span>No hidden fees</span></div>
-        <div><strong>6 Languages</strong><span>Learn comfortably</span></div>
-        <div><strong>Live Experts</strong><span>Ask questions live</span></div>
+          <div class="hero-usp" aria-label="Sikho Market benefits">
+            <div><strong data-i18n="hero.usp1.t">100% Free</strong><span data-i18n="hero.usp1.s">No hidden fees</span></div>
+            <div><strong data-i18n="hero.usp2.t">6 Languages</strong><span data-i18n="hero.usp2.s">Learn comfortably</span></div>
+            <div><strong data-i18n="hero.usp3.t">Live Experts</strong><span data-i18n="hero.usp3.s">Ask questions live</span></div>
+          </div>
+
+          <div class="hero-language">
+            <p data-i18n="hero.chooseLang">Choose your preferred language</p>
+            <div class="lang-filter">
+              <button class="active" data-filter="all">All</button>
+              <button data-filter="English">English</button>
+              <button data-filter="Hindi">Hindi</button>
+              <button data-filter="Tamil">Tamil</button>
+              <button data-filter="Telugu">Telugu</button>
+              <button data-filter="Kannada">Kannada</button>
+              <button data-filter="Gujarati">Gujarati</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-photo is-transparent hero-photo-person">
+            <img class="hero-person-img" src="images/ABC.png" alt="Professional teaching stock market on a laptop" loading="eager" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEARNING LEVELS ============ -->
+  <section class="section" id="learn">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker" data-i18n="learn.kicker">Structured Learning</span>
+        <h2 data-i18n="learn.title">Master the Stock Market, Step by Step</h2>
+        <p data-i18n="learn.desc">Pick your level and open a complete, topic-wise guide with clear explanations and charts.</p>
       </div>
 
-      <div class="hero-language">
-        <p>Choose your preferred language</p>
-        <div class="lang-filter">
-          <button class="active" data-filter="all">All</button>
-          <button data-filter="English">English</button>
-          <button data-filter="Hindi">Hindi</button>
-          <button data-filter="Tamil">Tamil</button>
-          <button data-filter="Telugu">Telugu</button>
-          <button data-filter="Kannada">Kannada</button>
-          <button data-filter="Gujarati">Gujarati</button>
-        </div>
+      <div class="levels-grid">
+        <!-- Beginner -->
+        <a class="level-card lvl-beginner" href="learn-beginner.html">
+          <span class="lvl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 10v5c3 2 9 2 12 0v-5"/></svg></span>
+          <span class="lvl-tag">Start Here</span>
+          <h3 data-i18n="level.beginner">Beginner</h3>
+          <p>New to the market? Learn the core building blocks from scratch.</p>
+          <ul class="lvl-topics">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> What is a stock &amp; how markets work</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Demat, brokers &amp; placing your first order</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Indices, IPOs &amp; market participants</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Risk basics &amp; smart habits</li>
+          </ul>
+          <div class="lvl-cta"><span data-i18n="level.startLearning">Start learning</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </a>
+
+        <!-- Intermediate -->
+        <a class="level-card lvl-intermediate" href="learn-intermediate.html">
+          <span class="lvl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+          <span class="lvl-tag">Level Up</span>
+          <h3 data-i18n="level.intermediate">Intermediate</h3>
+          <p>Know the basics? Learn to analyse charts and value companies.</p>
+          <ul class="lvl-topics">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Technical analysis &amp; candlesticks</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Support, resistance &amp; trends</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Fundamental analysis &amp; ratios</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Indicators: RSI, MACD &amp; moving averages</li>
+          </ul>
+          <div class="lvl-cta"><span data-i18n="level.startLearning">Start learning</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </a>
+
+        <!-- Advanced -->
+        <a class="level-card lvl-advanced" href="learn-advanced.html">
+          <span class="lvl-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l7-7"/><path d="M12 6v6h6"/></svg></span>
+          <span class="lvl-tag">Go Pro</span>
+          <h3 data-i18n="level.advanced">Advanced</h3>
+          <p>Trade with an edge — derivatives, strategies and risk control.</p>
+          <ul class="lvl-topics">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Futures &amp; options explained</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Option Greeks &amp; strategies</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Position sizing &amp; risk management</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Portfolio building &amp; psychology</li>
+          </ul>
+          <div class="lvl-cta"><span data-i18n="level.startLearning">Start learning</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -72,7 +161,7 @@
 
       <!-- Webinar cards (filter by language) -->
       <div class="cards-grid">
-        <article class="webinar-card" data-lang="Kannada">
+        <article class="webinar-card" data-lang="Kannada" data-date="2026-08-31T11:00:00+05:30" data-landing-url="contact.html" tabindex="0" role="link" aria-label="Open Kannada webinar booking page">
           <div class="card-top">
             <span class="lang-tag">Kannada</span>
           </div>
@@ -81,13 +170,13 @@
             <h3>How to Decode Smart Money Movement?</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              31 Aug 2026 &middot; 11:00 AM
+              <time datetime="2026-08-31T11:00:00+05:30">31 Aug 2026 &middot; 11:00 AM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="contact.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
         </article>
 
-        <article class="webinar-card" data-lang="Gujarati">
+        <article class="webinar-card" data-lang="Gujarati" data-date="2026-09-01T18:00:00+05:30" data-landing-url="contact.html" tabindex="0" role="link" aria-label="Open Gujarati webinar booking page">
           <div class="card-top">
             <span class="lang-tag">Gujarati</span>
           </div>
@@ -96,13 +185,13 @@
             <h3>Share Market Basics for First-Time Investors</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              01 Sep 2026 &middot; 6:00 PM
+              <time datetime="2026-09-01T18:00:00+05:30">01 Sep 2026 &middot; 6:00 PM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="contact.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
         </article>
 
-        <article class="webinar-card" data-lang="Hindi">
+        <article class="webinar-card" data-lang="Hindi" data-date="2026-09-02T18:30:00+05:30" data-landing-url="contact.html" tabindex="0" role="link" aria-label="Open Hindi webinar booking page">
           <div class="card-top">
             <span class="lang-tag">Hindi</span>
           </div>
@@ -111,13 +200,13 @@
             <h3>Options Trading Masterclass — Risk &amp; Reward Simplified</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              02 Sep 2026 &middot; 6:30 PM
+              <time datetime="2026-09-02T18:30:00+05:30">02 Sep 2026 &middot; 6:30 PM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="contact.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
         </article>
 
-        <article class="webinar-card" data-lang="Tamil">
+        <article class="webinar-card" data-lang="Tamil" data-date="2026-09-04T17:00:00+05:30" data-landing-url="tamilwebinar/index.html" tabindex="0" role="link" aria-label="Open Tamil webinar booking page">
           <div class="card-top">
             <span class="lang-tag">Tamil</span>
           </div>
@@ -126,13 +215,13 @@
             <h3>Intraday Trading Strategies for Beginners</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              04 Sep 2026 &middot; 5:00 PM
+              <time datetime="2026-09-04T17:00:00+05:30">04 Sep 2026 &middot; 5:00 PM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="tamilwebinar/index.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
         </article>
 
-        <article class="webinar-card" data-lang="Telugu">
+        <article class="webinar-card" data-lang="Telugu" data-date="2026-09-05T19:00:00+05:30" data-landing-url="contact.html" tabindex="0" role="link" aria-label="Open Telugu webinar booking page">
           <div class="card-top">
             <span class="lang-tag">Telugu</span>
           </div>
@@ -141,13 +230,13 @@
             <h3>Mutual Funds &amp; SIP — Building Long-Term Wealth</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              05 Sep 2026 &middot; 7:00 PM
+              <time datetime="2026-09-05T19:00:00+05:30">05 Sep 2026 &middot; 7:00 PM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="contact.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
         </article>
 
-        <article class="webinar-card" data-lang="English">
+        <article class="webinar-card" data-lang="English" data-date="2026-09-06T16:00:00+05:30" data-landing-url="contact.html" tabindex="0" role="link" aria-label="Open English webinar booking page">
           <div class="card-top">
             <span class="lang-tag">English</span>
           </div>
@@ -156,7 +245,7 @@
             <h3>Building a Long-Term Investment Portfolio</h3>
             <div class="card-meta">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              06 Sep 2026 &middot; 4:00 PM
+              <time datetime="2026-09-06T16:00:00+05:30">06 Sep 2026 &middot; 4:00 PM</time>
             </div>
             <div class="card-foot"><span class="price">Free</span><a href="contact.html" class="book-link card-book-link">Book Free Seat</a></div>
           </div>
@@ -177,18 +266,18 @@
         </div>
 
         <div class="schedule-list" data-tab-panel="upcoming">
-          <article class="schedule-item" data-lang="Kannada"><div><h3>How to Decode Smart Money Movement?</h3><div class="schedule-meta"><span class="lang-tag">Kannada</span><span>31 Aug 2026, 11:00 AM</span></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
-          <article class="schedule-item" data-lang="Gujarati"><div><h3>Share Market Basics for First-Time Investors</h3><div class="schedule-meta"><span class="lang-tag">Gujarati</span><span>01 Sep 2026, 6:00 PM</span></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
-          <article class="schedule-item" data-lang="Hindi"><div><h3>Options Trading Masterclass — Risk &amp; Reward Simplified</h3><div class="schedule-meta"><span class="lang-tag">Hindi</span><span>02 Sep 2026, 6:30 PM</span></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
-          <article class="schedule-item" data-lang="Tamil"><div><h3>Intraday Trading Strategies for Beginners</h3><div class="schedule-meta"><span class="lang-tag">Tamil</span><span>04 Sep 2026, 5:00 PM</span></div></div><a href="tamilwebinar/index.html" class="book-link">Book Free Seat</a></article>
-          <article class="schedule-item" data-lang="Telugu"><div><h3>Mutual Funds &amp; SIP — Building Long-Term Wealth</h3><div class="schedule-meta"><span class="lang-tag">Telugu</span><span>05 Sep 2026, 7:00 PM</span></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
-          <article class="schedule-item" data-lang="English"><div><h3>Building a Long-Term Investment Portfolio</h3><div class="schedule-meta"><span class="lang-tag">English</span><span>06 Sep 2026, 4:00 PM</span></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="Kannada" data-date="2026-08-31T11:00:00+05:30"><div><h3>How to Decode Smart Money Movement?</h3><div class="schedule-meta"><span class="lang-tag">Kannada</span><time datetime="2026-08-31T11:00:00+05:30">31 Aug 2026, 11:00 AM</time></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="Gujarati" data-date="2026-09-01T18:00:00+05:30"><div><h3>Share Market Basics for First-Time Investors</h3><div class="schedule-meta"><span class="lang-tag">Gujarati</span><time datetime="2026-09-01T18:00:00+05:30">01 Sep 2026, 6:00 PM</time></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="Hindi" data-date="2026-09-02T18:30:00+05:30"><div><h3>Options Trading Masterclass — Risk &amp; Reward Simplified</h3><div class="schedule-meta"><span class="lang-tag">Hindi</span><time datetime="2026-09-02T18:30:00+05:30">02 Sep 2026, 6:30 PM</time></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="Tamil" data-date="2026-09-04T17:00:00+05:30"><div><h3>Intraday Trading Strategies for Beginners</h3><div class="schedule-meta"><span class="lang-tag">Tamil</span><time datetime="2026-09-04T17:00:00+05:30">04 Sep 2026, 5:00 PM</time></div></div><a href="tamilwebinar/index.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="Telugu" data-date="2026-09-05T19:00:00+05:30"><div><h3>Mutual Funds &amp; SIP — Building Long-Term Wealth</h3><div class="schedule-meta"><span class="lang-tag">Telugu</span><time datetime="2026-09-05T19:00:00+05:30">05 Sep 2026, 7:00 PM</time></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
+          <article class="schedule-item" data-lang="English" data-date="2026-09-06T16:00:00+05:30"><div><h3>Building a Long-Term Investment Portfolio</h3><div class="schedule-meta"><span class="lang-tag">English</span><time datetime="2026-09-06T16:00:00+05:30">06 Sep 2026, 4:00 PM</time></div></div><a href="contact.html" class="book-link">Book Free Seat</a></article>
         </div>
 
         <div class="schedule-list hidden" data-tab-panel="past">
-          <article class="schedule-item" data-lang="Telugu"><div><h3>Understanding Candlestick Patterns</h3><div class="schedule-meta"><span class="lang-tag">Telugu</span><span>20 Aug 2026, 6:00 PM</span></div></div><a href="#" class="book-link">Watch Replay</a></article>
-          <article class="schedule-item" data-lang="English"><div><h3>Fundamentals of Mutual Fund Investing</h3><div class="schedule-meta"><span class="lang-tag">English</span><span>15 Aug 2026, 5:30 PM</span></div></div><a href="#" class="book-link">Watch Replay</a></article>
-          <article class="schedule-item" data-lang="Hindi"><div><h3>Technical Analysis 101 — Support &amp; Resistance</h3><div class="schedule-meta"><span class="lang-tag">Hindi</span><span>10 Aug 2026, 7:00 PM</span></div></div><a href="#" class="book-link">Watch Replay</a></article>
+          <article class="schedule-item" data-lang="Telugu" data-date="2026-08-20T18:00:00+05:30"><div><h3>Understanding Candlestick Patterns</h3><div class="schedule-meta"><span class="lang-tag">Telugu</span><time datetime="2026-08-20T18:00:00+05:30">20 Aug 2026, 6:00 PM</time></div></div><a href="#" class="book-link">Watch Replay</a></article>
+          <article class="schedule-item" data-lang="English" data-date="2026-08-15T17:30:00+05:30"><div><h3>Fundamentals of Mutual Fund Investing</h3><div class="schedule-meta"><span class="lang-tag">English</span><time datetime="2026-08-15T17:30:00+05:30">15 Aug 2026, 5:30 PM</time></div></div><a href="#" class="book-link">Watch Replay</a></article>
+          <article class="schedule-item" data-lang="Hindi" data-date="2026-08-10T19:00:00+05:30"><div><h3>Technical Analysis 101 — Support &amp; Resistance</h3><div class="schedule-meta"><span class="lang-tag">Hindi</span><time datetime="2026-08-10T19:00:00+05:30">10 Aug 2026, 7:00 PM</time></div></div><a href="#" class="book-link">Watch Replay</a></article>
         </div>
       </section>
     </div>
@@ -345,10 +434,10 @@
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a>
+          <a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a>
+          <a href="about.html"><span data-i18n="nav.about">About Us</span></a>
+          <a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a>
         </div>
         </div>
       </div>
@@ -359,6 +448,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script>  <script src="js/i18n.js"></script>
 </body>
 </html>

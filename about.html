@@ -14,16 +14,31 @@
       <nav class="nav">
         <a href="index.html" class="brand">
           <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
-          <span class="brand-text"><span class="name">Sikho<span class="accent">Market</span></span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+          <span class="brand-text"><span class="name">SikhoMarket</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
         </a>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" class="active">About Us</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html"><span data-i18n="nav.home">Home</span></a></li>
+          <li><a href="about.html" class="active"><span data-i18n="nav.about">About Us</span></a></li>
+          <li><a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a></li>
+          <li><a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a></li>
+          <li><a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a></li>
         </ul>
         <div class="nav-cta">
+          <div class="lang-switch">
+            <button class="lang-switch-toggle" aria-label="Change language">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+              <span data-lang-current class="lang-label-full">English</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="lang-switch-menu notranslate">
+              <a data-set-lang="en">English</a>
+              <a data-set-lang="hi">Hindi (हिंदी)</a>
+              <a data-set-lang="ta">Tamil (தமிழ்)</a>
+              <a data-set-lang="te">Telugu (తెలుగు)</a>
+              <a data-set-lang="kn">Kannada (ಕನ್ನಡ)</a>
+              <a data-set-lang="gu">Gujarati (ગુજરાતી)</a>
+            </div>
+          </div>
           <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
       </nav>
@@ -35,7 +50,7 @@
       <div class="about-hero-inner">
         <div class="about-hero-copy">
           <p class="about-hero-kicker">About Sikho Market</p>
-          <h1 id="about-hero-title">Learn without a <em>language barrier.</em></h1>
+          <h1 id="about-hero-title">Learn without a <strong>language barrier.</strong></h1>
           <p class="about-hero-lead">Practical, expert-led market education for every Indian — in the language they understand best.</p>
           <ul class="about-hero-langs" aria-label="Languages we teach in">
             <li>English</li>
@@ -64,17 +79,7 @@
             </div>
           </dl>
         </div>
-        <div class="about-hero-visual">
-          <div class="about-market-visual">
-            <span class="about-live-badge">Live sessions</span>
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Market analytics dashboard on a computer screen" />
-            <div class="market-caption">
-              <span>Live market learning</span>
-              <strong>Clear data. Better decisions.</strong>
-            </div>
-          </div>
-          <p class="about-hero-float">Expert-led &amp; interactive</p>
-        </div>
+
       </div>
     </div>
   </section>
@@ -214,10 +219,10 @@
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a>
+          <a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a>
+          <a href="about.html"><span data-i18n="nav.about">About Us</span></a>
+          <a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a>
         </div>
         </div>
       </div>
@@ -228,6 +233,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script>  <script src="js/i18n.js"></script>
 </body>
 </html>

@@ -15,26 +15,61 @@
       <nav class="nav">
         <a href="index.html" class="brand">
           <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v5"/></svg></span>
-          <span class="brand-text"><span class="name">Sikho<span class="accent">Market</span></span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
+          <span class="brand-text"><span class="name">SikhoMarket</span><span class="tagline">Learn &middot; Invest &middot; Grow</span></span>
         </a>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="terms.html" class="active">Terms &amp; Conditions</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html"><span data-i18n="nav.home">Home</span></a></li>
+          <li><a href="about.html"><span data-i18n="nav.about">About Us</span></a></li>
+          <li><a href="terms.html" class="active"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a></li>
+          <li><a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a></li>
+          <li><a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a></li>
         </ul>
         <div class="nav-cta">
+          <div class="lang-switch">
+            <button class="lang-switch-toggle" aria-label="Change language">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+              <span data-lang-current class="lang-label-full">English</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="lang-switch-menu notranslate">
+              <a data-set-lang="en">English</a>
+              <a data-set-lang="hi">Hindi (हिंदी)</a>
+              <a data-set-lang="ta">Tamil (தமிழ்)</a>
+              <a data-set-lang="te">Telugu (తెలుగు)</a>
+              <a data-set-lang="kn">Kannada (ಕನ್ನಡ)</a>
+              <a data-set-lang="gu">Gujarati (ગુજરાતી)</a>
+            </div>
+          </div>
           <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- ============ BANNER ============ -->
-  <section class="page-banner legal-hero">
+  <!-- ============ HERO ============ -->
+  <section class="legal-hero">
     <div class="container">
-      <h1>Terms &amp; Conditions</h1>
+      <div class="legal-hero-inner">
+        <div class="legal-hero-copy">
+          <!-- <span>Legal &middot; Sikho Market</span> -->
+          <h1>Terms &amp; Conditions</h1>
+          <p>Clear, fair terms for using our website, webinars and services — written to be easy to understand.</p>
+        </div>
+        <aside class="legal-hero-panel" aria-label="At a glance">
+          <div class="legal-hero-stat">
+            <strong>Educational only</strong>
+            <span>Not financial or investment advice</span>
+          </div>
+          <div class="legal-hero-stat">
+            <strong>Updated <span data-current-month-year>Aug 2026</span></strong>
+            <span>We revise these terms as needed</span>
+          </div>
+          <div class="legal-hero-stat">
+            <strong>Questions?</strong>
+            <span>Reach us any time via Contact</span>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -43,7 +78,7 @@
     <div class="container">
       <div class="feature-split">
         <div>
-          <div class="updated"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Last updated: 29 August 2026</span></div>
+          <div class="updated"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Last updated: <span data-current-date>29 August 2026</span></span></div>
           <p>Welcome to Sikho Market. These Terms and Conditions ("Terms") govern your access to and use of our website, webinars, and related services. By accessing our platform or registering for any webinar, you agree to be bound by these Terms. Please read them carefully.</p>
         </div>
         <div class="feature-media">
@@ -55,8 +90,8 @@
             <rect x="140" y="112" width="100" height="8" rx="4" fill="#cbd5e1"/>
             <rect x="140" y="136" width="120" height="8" rx="4" fill="#cbd5e1"/>
             <rect x="140" y="150" width="80" height="8" rx="4" fill="#cbd5e1"/>
-            <path d="M140 190l60 24" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="292" cy="200" r="40" fill="#1d4ed8"/>
+            <path d="M140 190l60 24" stroke="#0a2145" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="292" cy="200" r="40" fill="#0a2145"/>
             <path d="M274 200l12 12 24-24" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -134,10 +169,10 @@
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="about.html">About Us</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="terms.html"><span data-i18n="nav.terms">Terms &amp; Conditions</span></a>
+          <a href="privacy.html"><span data-i18n="nav.privacy">Privacy Policy</span></a>
+          <a href="about.html"><span data-i18n="nav.about">About Us</span></a>
+          <a href="contact.html"><span data-i18n="nav.contact">Contact Us</span></a>
         </div>
         <div class="footer-col">
           <h4>Support</h4>
@@ -153,6 +188,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script>  <script src="js/i18n.js"></script>
 </body>
 </html>
