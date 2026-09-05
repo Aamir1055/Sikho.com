@@ -284,6 +284,14 @@
   window.SikhoI18n = { apply: applyLang, current: currentLang, langs: LANGS };
 
   document.addEventListener("DOMContentLoaded", function () {
+    var translateStyle = document.createElement("style");
+    translateStyle.id = "sikho-internal-translate-style";
+    translateStyle.textContent =
+      ".goog-te-banner-frame,.goog-te-banner-frame.skiptranslate,body > .skiptranslate," +
+      "body > .skiptranslate iframe,.goog-te-balloon-frame,.goog-te-gadget{display:none!important;}" +
+      "html body{top:0!important;position:static!important;}";
+    document.head.appendChild(translateStyle);
+
     var lang = currentLang();
     setGoogleLanguage(lang);
     applyLang(lang);

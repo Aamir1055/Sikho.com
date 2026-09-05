@@ -3498,8 +3498,14 @@ a.contact-channel:hover { border-left-color: var(--blue-600); transform: transla
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-body { top: 0 !important; }
+/* Google Translate runs invisibly; language changes happen through our own menu. */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+body > .skiptranslate,
+body > .skiptranslate iframe,
+.goog-te-balloon-frame,
+.goog-te-gadget { display: none !important; }
+html body { top: 0 !important; position: static !important; }
 
 .lang-switch { position: relative; margin-right: 6px; }
 .lang-switch-toggle {
