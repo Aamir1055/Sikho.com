@@ -74,6 +74,13 @@
     "gate.platform": { en: "Trading Platform", hi: "ट्रेडिंग प्लेटफ़ॉर्म", ta: "வர்த்தக தளம்", te: "ట్రేడింగ్ ప్లాట్‌ఫారమ్", kn: "ವ್ಯಾಪಾರ ವೇದಿಕೆ", gu: "ટ્રેડિંગ પ્લેટફોર્મ" },
     "gate.platformPh": { en: "e.g. Zerodha, Groww, or none yet", hi: "उदाहरण: ज़ेरोधा, ग्रो या अभी कोई नहीं", ta: "எ.கா. Zerodha, Groww அல்லது இன்னும் எதுவுமில்லை", te: "ఉదా. Zerodha, Groww లేదా ఇంకా ఏదీ లేదు", kn: "ಉದಾ. Zerodha, Groww, ಅಥವಾ ಇನ್ನೂ ಯಾವುದೂ ಇಲ್ಲ", gu: "દા.ત. Zerodha, Groww અથવા હજુ કંઈ નથી" },
     "gate.submit": { en: "Unlock & Start Learning", hi: "अनलॉक करें और सीखना शुरू करें", ta: "திறக்கவும் & கற்றலைத் தொடங்கவும்", te: "అన్‌లాక్ చేసి నేర్చుకోవడం ప్రారంభించండి", kn: "ಅನ್‌ಲಾಕ್ ಮಾಡಿ ಮತ್ತು ಕಲಿಯಲು ಪ್ರಾರಂಭಿಸಿ", gu: "અનલૉક કરો અને શીખવાનું શરૂ કરો" },
+    "gate.unlockCourse": { en: "Unlock learning", hi: "सीखना अनलॉक करें", ta: "கற்றலைத் திறக்கவும்", te: "అభ్యాసాన్ని అన్‌లాక్ చేయండి", kn: "ಕಲಿಕೆಯನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಿ", gu: "શીખવાનું અનલૉક કરો" },
+    "gate.registerContinue": { en: "Register free to continue learning.", hi: "सीखना जारी रखने के लिए निःशुल्क पंजीकरण करें।", ta: "கற்றலைத் தொடர இலவசமாக பதிவு செய்யுங்கள்.", te: "నేర్చుకోవడం కొనసాగించడానికి ఉచితంగా నమోదు చేసుకోండి.", kn: "ಕಲಿಕೆಯನ್ನು ಮುಂದುವರಿಸಲು ಉಚಿತವಾಗಿ ನೋಂದಾಯಿಸಿ.", gu: "શીખવાનું ચાલુ રાખવા મફતમાં નોંધણી કરો." },
+    "gate.preferredLanguage": { en: "Preferred language", hi: "पसंदीदा भाषा", ta: "விருப்பமான மொழி", te: "ఇష్టమైన భాష", kn: "ಆದ್ಯತೆಯ ಭಾಷೆ", gu: "પસંદગીની ભાષા" },
+    "gate.selectLanguage": { en: "Select your language", hi: "अपनी भाषा चुनें", ta: "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்", te: "మీ భాషను ఎంచుకోండి", kn: "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", gu: "તમારી ભાષા પસંદ કરો" },
+    "gate.selectMarket": { en: "Select your market", hi: "अपना बाज़ार चुनें", ta: "உங்கள் சந்தையைத் தேர்ந்தெடுக்கவும்", te: "మీ మార్కెట్‌ను ఎంచుకోండి", kn: "ನಿಮ್ಮ ಮಾರುಕಟ್ಟೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", gu: "તમારું બજાર પસંદ કરો" },
+    "gate.marketPreference": { en: "Market preference", hi: "बाज़ार की पसंद", ta: "சந்தை விருப்பம்", te: "మార్కెట్ ప్రాధాన్యత", kn: "ಮಾರುಕಟ್ಟೆ ಆದ್ಯತೆ", gu: "બજારની પસંદગી" },
+    "gate.continueLearning": { en: "Continue learning", hi: "सीखना जारी रखें", ta: "கற்றலைத் தொடரவும்", te: "నేర్చుకోవడం కొనసాగించండి", kn: "ಕಲಿಕೆಯನ್ನು ಮುಂದುವರಿಸಿ", gu: "શીખવાનું ચાલુ રાખો" },
 
     /* ---- Footer ---- */
     "footer.tagline":  { en: "Free live webinars and structured courses to help you learn the market with confidence.", hi: "आत्मविश्वास से बाज़ार सीखने में मदद करने के लिए मुफ़्त लाइव वेबिनार और संरचित पाठ्यक्रम।", ta: "நம்பிக்கையுடன் சந்தையைக் கற்க உதவும் இலவச நேரடி வெபினார்கள் மற்றும் கட்டமைக்கப்பட்ட படிப்புகள்.", te: "నమ్మకంతో మార్కెట్‌ను నేర్చుకోవడానికి ఉచిత లైవ్ వెబినార్లు మరియు నిర్మాణాత్మక కోర్సులు.", kn: "ವಿಶ್ವಾಸದಿಂದ ಮಾರುಕಟ್ಟೆ ಕಲಿಯಲು ಉಚಿತ ಲೈವ್ ವೆಬಿನಾರ್‌ಗಳು ಮತ್ತು ರಚನಾತ್ಮಕ ಕೋರ್ಸ್‌ಗಳು.", gu: "આત્મવિશ્વાસથી માર્કેટ શીખવામાં મદદ કરવા મફત લાઇવ વેબિનાર અને સંરચિત કોર્સ." },
@@ -115,10 +122,73 @@
     try { localStorage.setItem("sikho_translation_" + lang, JSON.stringify(cache)); } catch (e) {}
   }
 
+  function setGoogleLanguage(lang) {
+    var value = lang === "en" ? "/en/en" : "/en/" + lang;
+    document.cookie = "googtrans=" + value + ";path=/";
+    document.cookie = "googtrans=" + value + ";path=/;domain=" + window.location.hostname;
+  }
+
+  function loadGoogleTranslator(lang) {
+    if (lang === "en") return;
+    var mount = document.getElementById("google_translate_element");
+    if (!mount) {
+      mount = document.createElement("div");
+      mount.id = "google_translate_element";
+      mount.style.cssText = "position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;";
+      document.body.appendChild(mount);
+    }
+    window.googleTranslateElementInit = function () {
+      var TranslateElement = window.google && window.google.translate && window.google.translate.TranslateElement;
+      if (mount.dataset.initialized || typeof TranslateElement !== "function") {
+        var attempts = Number(mount.dataset.attempts || 0);
+        if (!mount.dataset.initialized && attempts < 20) {
+          mount.dataset.attempts = String(attempts + 1);
+          window.setTimeout(window.googleTranslateElementInit, 250);
+        }
+        return;
+      }
+      try {
+        new TranslateElement({
+          pageLanguage: "en",
+          includedLanguages: "hi,ta,te,kn,gu",
+          autoDisplay: false
+        }, "google_translate_element");
+        mount.dataset.initialized = "true";
+        selectGoogleLanguage(lang, 0);
+      } catch (e) {
+        mount.dataset.attempts = "20";
+      }
+    };
+    if (!document.querySelector('script[src*="translate.google.com/translate_a/element.js"]')) {
+      var script = document.createElement("script");
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      script.onload = function () {
+        window.setTimeout(window.googleTranslateElementInit, 0);
+      };
+      document.head.appendChild(script);
+    } else {
+      window.googleTranslateElementInit();
+    }
+  }
+
+  function selectGoogleLanguage(lang, attempt) {
+    if (lang === "en") return;
+    var select = document.querySelector(".goog-te-combo");
+    if (select) {
+      select.value = lang;
+      select.dispatchEvent(new Event("change"));
+      return;
+    }
+    if (attempt < 20) {
+      window.setTimeout(function () { selectGoogleLanguage(lang, attempt + 1); }, 250);
+    }
+  }
+
   function translateText(text, lang, cache) {
     if (!text || !/[A-Za-z]/.test(text)) return Promise.resolve(text);
     if (cache[text]) return Promise.resolve(cache[text]);
-    var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=" +
+    var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" +
       encodeURIComponent(lang) + "&dt=t&q=" + encodeURIComponent(text);
     return fetch(url).then(function (response) { return response.json(); }).then(function (data) {
       var translated = data && data[0] ? data[0].map(function (part) { return part[0] || ""; }).join("") : text;
@@ -149,6 +219,19 @@
       }
     });
 
+    root.querySelectorAll("[title], [aria-label], img[alt]").forEach(function (element) {
+      ["title", "aria-label", "alt"].forEach(function (attribute) {
+        var value = element.getAttribute(attribute);
+        if (value && /[A-Za-z]/.test(value)) {
+          nodes.push({ element: element, attribute: attribute, value: value });
+        }
+      });
+    });
+
+    if (document.title && /[A-Za-z]/.test(document.title)) {
+      nodes.push({ title: true, value: document.title });
+    }
+
     var cursor = 0;
     var workerCount = Math.min(24, nodes.length);
     function worker() {
@@ -157,6 +240,8 @@
       return translateText(item.value, lang, cache).then(function (translated) {
         if (item.node) item.node.nodeValue = item.node.nodeValue.replace(item.value, translated);
         if (item.field) item.field.setAttribute("placeholder", translated);
+        if (item.element) item.element.setAttribute(item.attribute, translated);
+        if (item.title) document.title = translated;
         return worker();
       });
     }
@@ -171,7 +256,10 @@
     /* text content */
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var val = t(el.getAttribute("data-i18n"), lang);
-      if (val !== null) el.textContent = val;
+      if (val !== null) {
+        el.textContent = val;
+        el.setAttribute("translate", "no");
+      }
     });
     /* placeholders */
     document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
@@ -196,10 +284,11 @@
   window.SikhoI18n = { apply: applyLang, current: currentLang, langs: LANGS };
 
   document.addEventListener("DOMContentLoaded", function () {
-    applyLang(currentLang());
-    translatePage(currentLang()).then(function () {
-      document.documentElement.classList.remove("i18n-loading");
-    });
+    var lang = currentLang();
+    setGoogleLanguage(lang);
+    applyLang(lang);
+    loadGoogleTranslator(lang);
+    document.documentElement.classList.remove("i18n-loading");
 
     /* Course gates and other widgets can add copy after this event. */
     var observer = new MutationObserver(function (records) {
@@ -207,7 +296,7 @@
         Array.prototype.forEach.call(record.addedNodes, function (added) {
           if (added.nodeType === 1) {
             applyLang(currentLang());
-            translatePage(currentLang(), added);
+            loadGoogleTranslator(currentLang());
           }
         });
       });
@@ -218,7 +307,9 @@
     document.querySelectorAll("[data-set-lang]").forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.preventDefault();
-        applyLang(el.getAttribute("data-set-lang"));
+        var selectedLang = el.getAttribute("data-set-lang");
+        applyLang(selectedLang);
+        setGoogleLanguage(selectedLang);
         /* close dropdown */
         var menu = el.closest(".lang-switch");
         if (menu) menu.classList.remove("open");

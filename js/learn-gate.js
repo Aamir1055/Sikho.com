@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
           '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>' +
         '</span>' +
         '<div>' +
-          '<h3>Unlock ' + course + ' learning</h3>' +
-          '<p>Register free to continue learning.</p>' +
+          '<h3 data-i18n="gate.unlockCourse">Unlock ' + course + ' learning</h3>' +
+          '<p data-i18n="gate.registerContinue">Register free to continue learning.</p>' +
         '</div>' +
       '</div>' +
       '<div class="gate-body">' +
@@ -35,31 +35,30 @@ document.addEventListener("DOMContentLoaded", function () {
             '<input type="tel" id="g-phone" name="phone" data-i18n-ph="gate.phonePh" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" required />' +
           '</div>' +
           '<div class="form-group">' +
-            '<label for="g-language">Preferred language<span class="required-mark" aria-hidden="true">*</span></label>' +
+            '<label for="g-language"><span data-i18n="gate.preferredLanguage">Preferred language</span><span class="required-mark" aria-hidden="true">*</span></label>' +
             '<select id="g-language" name="language" required>' +
-              '<option value="" disabled selected>Select your language</option>' +
-              '<option value="Gujarati">Gujarati</option><option value="Hindi">Hindi</option><option value="English">English</option>' +
-              '<option value="Tamil">Tamil</option><option value="Telugu">Telugu</option><option value="Malayalam">Malayalam</option>' +
-              '<option value="Kannada">Kannada</option><option value="Marathi">Marathi</option><option value="Punjabi">Punjabi</option><option value="Other">Other</option>' +
+              '<option value="" disabled selected data-i18n="gate.selectLanguage">Select your language</option>' +
+              '<option value="Tamil">Tamil</option><option value="Telugu">Telugu</option><option value="Kannada">Kannada</option><option value="Malayalam">Malayalam</option>' +
+              '<option value="English">English</option><option value="Hindi">Hindi</option><option value="Gujarati">Gujarati</option><option value="Marathi">Marathi</option><option value="Punjabi">Punjabi</option><option value="Other">Other</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
-            '<label for="g-exp">Experience level<span class="required-mark" aria-hidden="true">*</span></label>' +
+            '<label for="g-exp"><span data-i18n="gate.experience">Experience level</span><span class="required-mark" aria-hidden="true">*</span></label>' +
             '<select id="g-exp" name="experience" required>' +
-              '<option value="" disabled selected>Select your experience</option>' +
+              '<option value="" disabled selected data-i18n="gate.selectExperience">Select your experience</option>' +
               '<option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Expert">Expert</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
-            '<label for="g-market">Market preference<span class="required-mark" aria-hidden="true">*</span></label>' +
+            '<label for="g-market"><span data-i18n="gate.marketPreference">Market preference</span><span class="required-mark" aria-hidden="true">*</span></label>' +
             '<select id="g-market" name="market" required>' +
-              '<option value="" disabled selected>Select your market</option>' +
+              '<option value="" disabled selected data-i18n="gate.selectMarket">Select your market</option>' +
               '<option value="Stocks">Stocks</option><option value="Forex">Forex</option><option value="Crypto">Crypto</option>' +
               '<option value="Commodities">Commodities</option><option value="Options">Options</option><option value="Futures">Futures</option>' +
             '</select>' +
           '</div>' +
           '<p class="gate-status" role="status" aria-live="polite"></p>' +
-          '<button type="submit" class="btn btn-primary gate-submit">Continue learning</button>' +
+          '<button type="submit" class="btn btn-primary gate-submit" data-i18n="gate.continueLearning">Continue learning</button>' +
         '</form>' +
       '</div>' +
     '</div>';
