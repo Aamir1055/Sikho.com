@@ -1,0 +1,39 @@
+<svg width="620" height="500" viewBox="0 0 620 500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">A community learning together</title>
+  <desc id="desc">Three learners gathered around an open book with language bubbles and a shared path to growth.</desc>
+  <circle cx="310" cy="250" r="190" fill="#0D2850" opacity=".42"/>
+  <circle cx="310" cy="250" r="145" stroke="#38BDF8" stroke-width="2" stroke-dasharray="5 12" opacity=".35"/>
+  <path d="M102 409C180 374 242 375 310 401C378 375 440 374 518 409" stroke="#60A5FA" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+  <path d="M310 401V250" stroke="#60A5FA" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+  <path d="M310 250L379 197L424 218L504 112" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M479 112H504V137" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="379" cy="197" r="8" fill="#FFB703"/>
+  <circle cx="424" cy="218" r="8" fill="#38BDF8"/>
+  <circle cx="504" cy="112" r="9" fill="#34D399"/>
+  <path d="M148 365C196 341 252 341 310 365V431C252 407 196 407 148 431V365Z" fill="#14366A" stroke="#93C5FD" stroke-width="3"/>
+  <path d="M472 365C424 341 368 341 310 365V431C368 407 424 407 472 431V365Z" fill="#102C59" stroke="#93C5FD" stroke-width="3"/>
+  <path d="M169 378C210 362 252 363 294 379M169 398C210 382 252 383 294 399M451 378C410 362 368 363 326 379M451 398C410 382 368 383 326 399" stroke="#BFDBFE" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+  <path d="M310 365C294 351 288 330 295 313C302 296 320 289 336 297C351 305 355 324 348 341C341 356 327 365 310 365Z" fill="#FFB703"/>
+  <path d="M305 318C312 310 323 310 331 318M304 333C313 325 325 325 334 333M309 347C316 342 324 342 330 347" stroke="#FFF7DF" stroke-width="3" stroke-linecap="round"/>
+  <g transform="translate(62 99)">
+    <rect width="156" height="72" rx="22" fill="#123262" stroke="#60A5FA" stroke-width="2"/>
+    <path d="M156 45L178 60V33" fill="#123262" stroke="#60A5FA" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="32" cy="36" r="17" fill="#38BDF8" opacity=".17"/>
+    <path d="M22 36H42M32 26V46M26 30C29 33 35 33 38 30M26 42C29 39 35 39 38 42" stroke="#7DD3FC" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="61" y="43" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="700">Learn</text>
+  </g>
+  <g transform="translate(393 254)">
+    <rect width="164" height="72" rx="22" fill="#123262" stroke="#60A5FA" stroke-width="2"/>
+    <path d="M164 45L186 60V33" fill="#123262" stroke="#60A5FA" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="32" cy="36" r="17" fill="#34D399" opacity=".17"/>
+    <path d="M22 30C27 25 36 25 42 30M22 42C27 47 36 47 42 42M32 21C27 29 27 43 32 51M32 21C37 29 37 43 32 51M21 36H43" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="61" y="43" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="18" font-weight="700">Connect</text>
+  </g>
+  <g transform="translate(208 36)">
+    <rect width="204" height="62" rx="21" fill="#123262" stroke="#60A5FA" stroke-width="2"/>
+    <path d="M102 62L113 82L124 62" fill="#123262" stroke="#60A5FA" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="31" cy="31" r="15" fill="#FFB703" opacity=".18"/>
+    <path d="M23 31L29 37L40 25" stroke="#FDE68A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="59" y="38" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="17" font-weight="700">Grow together</text>
+  </g>
+</svg>
