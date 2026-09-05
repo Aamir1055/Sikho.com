@@ -1,0 +1,15 @@
+# Add these rules inside the existing server { } block for sikhomarket.com.
+# Keep the existing root, SSL, and PHP/proxy settings unchanged.
+
+location / {
+    try_files $uri $uri/ $uri.html =404;
+}
+
+# Optional: redirect old extension URLs to the clean canonical URLs.
+location = /about.html { return 301 /about; }
+location = /terms.html { return 301 /terms; }
+location = /privacy.html { return 301 /privacy; }
+location = /contact.html { return 301 /contact; }
+location = /learn-beginner.html { return 301 /learn-beginner; }
+location = /learn-intermediate.html { return 301 /learn-intermediate; }
+location = /learn-advanced.html { return 301 /learn-advanced; }

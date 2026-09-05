@@ -14,6 +14,13 @@ window.addEventListener("load", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  /* Use canonical extensionless URLs in internal navigation. */
+  document.querySelectorAll('a[href$=".html"], a[href*=".html?"], a[href*=".html#"]').forEach(function (link) {
+    var href = link.getAttribute("href");
+    if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return;
+    link.setAttribute("href", href.replace(/\.html(?=[?#]|$)/i, ""));
+  });
+
   /* ---- Mobile menu toggle ---- */
   var toggle = document.querySelector(".menu-toggle");
   var links = document.querySelector(".nav-links");
