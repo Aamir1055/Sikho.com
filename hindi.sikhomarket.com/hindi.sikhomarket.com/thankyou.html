@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Webinar Seat Confirmed | SeekhoMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #2563eb; --blue: #2563eb; --blue-dark: #1d4ed8;
+            --bg: #f4f7ff;
+            --accent-dark: #ffffff;
+            --ink: #0f172a; --ink-muted: #475569;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: #0f172a;
+            min-height: 100vh; overflow-x: hidden;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .trading-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .trading-bg canvas { width: 100%; height: 100%; }
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .scan-line {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(37,99,235,0.15), transparent);
+            z-index: 2; pointer-events: none;
+            animation: scanDown 4s linear infinite;
+        }
+        @keyframes scanDown { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* Confetti */
+        .confetti-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        .glass-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            backdrop-filter: blur(18px) saturate(1.6);
+            -webkit-backdrop-filter: blur(18px) saturate(1.6);
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid rgba(15,23,42,0.08);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.08);
+            padding: 10px 16px; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .glass-nav img { height: 28px; }
+        .brand-wordmark {
+            font-size: 18px; font-weight: 900; letter-spacing: -0.3px;
+            text-decoration: none; color: #0f172a;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .wrapper {
+            position: relative; z-index: 5;
+            max-width: 420px; margin: 0 auto;
+            padding: 16px 16px 40px;
+        }
+        .nav-spacer { height: 56px; }
+
+        .success-hero {
+            text-align: center; padding: 40px 20px 30px;
+        }
+        .success-check {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: rgba(37,99,235,0.1);
+            border: 3px solid var(--green);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px; font-size: 44px;
+            animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .success-hero h1 {
+            font-size: 26px; font-weight: 800;
+            margin-bottom: 8px;
+            color: #0f172a;
+            -webkit-text-fill-color: #0f172a;
+            animation: fadeUp 0.6s 0.3s both;
+        }
+        .success-hero p {
+            font-size: 14px; color: #475569;
+            line-height: 1.6;
+            animation: fadeUp 0.6s 0.5s both;
+        }
+        @keyframes fadeUp {
+            0% { transform: translateY(16px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Status Card */
+        .status-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 24px;
+            text-align: center; margin-bottom: 24px;
+            animation: fadeUp 0.6s 0.7s both;
+        }
+        .status-card .label {
+            font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5); margin-bottom: 6px;
+        }
+        .status-card .amount {
+            font-size: 38px; font-weight: 900;
+            color: var(--green);
+        }
+        .status-card .amount .rupee { font-size: 24px; }
+        .status-card .sub {
+            font-size: 12px; color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
+        /* Steps */
+        .steps {
+            margin-bottom: 24px;
+            animation: fadeUp 0.6s 0.9s both;
+        }
+        .steps-title {
+            font-size: 15px; font-weight: 700;
+            margin-bottom: 14px; text-align: center;
+        }
+        .step {
+            display: flex; align-items: flex-start; gap: 14px;
+            margin-bottom: 16px;
+        }
+        .step-num {
+            width: 32px; height: 32px; flex-shrink: 0;
+            border-radius: 50%; background: rgba(37,99,235,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800; color: var(--green);
+        }
+        .step-text { font-size: 13px; color: #475569; line-height: 1.5; padding-top: 5px; }
+        .step-text strong { color: #0f172a; }
+
+        .steps-title { color: #0f172a; }
+
+        .home-link {
+            display: block; text-align: center;
+            font-size: 13px; color: #475569;
+            text-decoration: none; padding: 8px;
+            animation: fadeUp 0.6s 1.3s both;
+        }
+        .home-link:hover { color: var(--green); }
+
+        .footer {
+            text-align: center; padding: 20px 0 10px;
+            border-top: 1px solid rgba(15,23,42,0.08);
+            margin-top: 12px;
+            animation: fadeUp 0.6s 1.5s both;
+        }
+        .footer p { font-size: 10px; color: #64748b; margin-bottom: 4px; }
+        .footer a { color: #475569; text-decoration: none; }
+
+        /* Date badge */
+        .date-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(37,99,235,0.08);
+            border: 1px solid rgba(37,99,235,0.15);
+            border-radius: 20px; padding: 6px 16px;
+            font-size: 12px; font-weight: 600; color: var(--green);
+            margin-bottom: 10px;
+            animation: fadeUp 0.6s 0.25s both;
+        }
+        .date-badge svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        .current-dt {
+            font-size: 12px;
+            color: #475569;
+            margin: 14px 0 8px;
+            text-align: center;
+            animation: fadeUp 0.6s 0.8s both;
+        }
+
+        .trading-bg, .grid-overlay, .scan-line { display: none; }
+        svg[stroke="#b9f641"],
+        svg[stroke="#b9f641"] * {
+            stroke: #2563eb !important;
+        }
+        svg[fill="#b9f641"],
+        svg[fill="#b9f641"] * {
+            fill: #2563eb !important;
+        }
+    </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '944969475125474');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=944969475125474&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- Animated background -->
+<div class="trading-bg"><canvas id="bgCanvas"></canvas></div>
+<div class="grid-overlay"></div>
+<div class="scan-line"></div>
+<canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+<!-- Navbar -->
+<nav class="glass-nav">
+    <a href="index.html" class="brand-wordmark">SeekhoMarket</a>
+</nav>
+
+<div class="wrapper">
+    <div class="nav-spacer"></div>
+
+    <div class="success-hero">
+        <div class="success-check">&#10003;</div>
+        <div class="date-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Webinar Seat Confirm Ho Gayi</div>
+        <h1>Free Webinar Mein Seat Book Ho Gayi!</h1>
+        <p>Aapka registration confirm ho gaya hai. Webinar join link aur timing jaldi share karenge.</p>
+    </div>
+
+    <p class="current-dt">Submit Karne Ka Time: <span id="currentDateTime">--</span></p>
+
+    <div class="steps">
+        <div class="steps-title">Ab Kya Karna Hai?</div>
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Confirmation Check Karo</strong> &mdash; Webinar join link aur timing registered number par share karenge</div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>WhatsApp Message Check Karo</strong> &mdash; Hamari team reminder aur market updates ke liye aapse connect karegi</div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Webinar Ke Time Join Karo</strong> &mdash; Mobile se basics se advance tak step by step seekho</div>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>Seekhna Shuru Karo</strong> &mdash; Sirf follow mat karo, khud analyse karke decision lo</div>
+        </div>
+    </div>
+
+    <a href="index.html" class="home-link">&larr; Home Par Wapas Jao</a>
+
+    <div class="footer">
+        <p>&copy; SeekhoMarket &bull; Yeh sirf educational purpose ke liye hai. Yeh investment advice nahi hai.</p>
+    </div>
+</div>
+
+<script>
+// ========== CANDLESTICK BG ==========
+(function() {
+    var canvas = document.getElementById('bgCanvas');
+    var ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    var candles = [];
+    var w = 12, gap = 4, price = 100;
+    function addCandle() {
+        var o = price;
+        price += (Math.random() - 0.48) * 4;
+        var c = price;
+        var h = Math.max(o, c) + Math.random() * 3;
+        var l = Math.min(o, c) - Math.random() * 3;
+        candles.push({ o: o, c: c, h: h, l: l });
+        var max = Math.ceil(canvas.width / (w + gap)) + 2;
+        if (candles.length > max) candles.shift();
+    }
+    for (var i = 0; i < Math.ceil(window.innerWidth / (w + gap)); i++) addCandle();
+    setInterval(addCandle, 2000);
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!candles.length) { requestAnimationFrame(draw); return; }
+        var mn = Infinity, mx = -Infinity;
+        candles.forEach(function(c) { if (c.l < mn) mn = c.l; if (c.h > mx) mx = c.h; });
+        var range = mx - mn || 1;
+        var pad = canvas.height * 0.1;
+        function y(v) { return pad + ((mx - v) / range) * (canvas.height - 2 * pad); }
+        candles.forEach(function(c, i) {
+            var x = i * (w + gap);
+            var bull = c.c >= c.o;
+            ctx.strokeStyle = bull ? 'rgba(37,99,235,0.18)' : 'rgba(255,82,82,0.18)';
+            ctx.beginPath();
+            ctx.moveTo(x + w / 2, y(c.h)); ctx.lineTo(x + w / 2, y(c.l));
+            ctx.stroke();
+            ctx.fillStyle = bull ? 'rgba(37,99,235,0.10)' : 'rgba(255,82,82,0.10)';
+            var top = y(Math.max(c.o, c.c));
+            var bot = y(Math.min(c.o, c.c));
+            ctx.fillRect(x, top, w, Math.max(bot - top, 1));
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+// ========== CONFETTI ==========
+(function() {
+    var canvas = document.getElementById('confettiCanvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    var colors = ['#2563eb','#ffd740','#ff5252','#40c4ff','#e040fb','#ffffff'];
+    var pieces = [];
+    for (var i = 0; i < 120; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height * 0.5 - canvas.height * 0.3,
+            w: Math.random() * 8 + 4, h: Math.random() * 4 + 2,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vx: (Math.random() - 0.5) * 6,
+            vy: Math.random() * 3 + 2,
+            rot: Math.random() * 360,
+            rv: (Math.random() - 0.5) * 12,
+            life: 1
+        });
+    }
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var alive = false;
+        pieces.forEach(function(p) {
+            if (p.life <= 0) return;
+            alive = true;
+            p.x += p.vx; p.y += p.vy; p.vy += 0.25;
+            p.rot += p.rv; p.life -= 0.006;
+            ctx.save();
+            ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+        });
+        if (alive) requestAnimationFrame(draw);
+        else canvas.style.display = 'none';
+    }
+    draw();
+})();
+
+// ========== CURRENT DATE-TIME STAMP ==========
+(function() {
+    var el = document.getElementById('currentDateTime');
+    if (!el) return;
+    var now = new Date();
+    el.textContent = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+})();
+</script>
+</body>
+</html>
