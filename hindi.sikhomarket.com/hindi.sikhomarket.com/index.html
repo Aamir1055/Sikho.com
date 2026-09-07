@@ -1455,7 +1455,7 @@ src="https://www.facebook.com/tr?id=1056877927093120&ev=PageView&noscript=1"
     <!-- Hero Video -->
     <div class="video-row anim">
         <div class="video-card">
-            <video src="Adsreel1.mp4" muted autoplay loop playsinline preload="metadata"></video>
+            <video src="AdsReel1.mp4" muted autoplay loop playsinline preload="metadata"></video>
             <div class="video-badges">
                 <span class="v-views"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>1.2K</span>
             </div>
@@ -2128,15 +2128,6 @@ function fireConfetti() {
     var muteIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
     var unmuteIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>';
     var primaryVideo = document.querySelector('.video-card video');
-    if (primaryVideo) {
-        primaryVideo.addEventListener('error', function() {
-            if (primaryVideo.src.indexOf('AdsReel2.mp4') === -1) {
-                primaryVideo.src = 'AdsReel2.mp4';
-                primaryVideo.load();
-                primaryVideo.play().catch(function() {});
-            }
-        });
-    }
     document.querySelectorAll('.vid-btn').forEach(function(btn) {
         var card = btn.closest('.video-card');
         var video = card.querySelector('video');
