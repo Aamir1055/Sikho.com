@@ -2247,7 +2247,7 @@ function fireConfetti() {
         referrer: document.referrer || '',
         utmSource: getParam('utm_source'),
         utmMedium: getParam('utm_medium'),
-        utmCampaign: getParam('utm_campaign'),
+        utmCampaign: getParam('utm_campaign') || getParam('campaign_name') || getParam('campaignName'),
         utmTerm: getParam('utm_term'),
         utmContent: getParam('utm_content')
     };
@@ -2308,6 +2308,7 @@ function fireConfetti() {
             utmSource: campaignContext.utmSource,
             utmMedium: campaignContext.utmMedium,
             utmCampaign: campaignContext.utmCampaign,
+            campaignName: campaignContext.utmCampaign,
             utmTerm: campaignContext.utmTerm,
             utmContent: campaignContext.utmContent
         };
