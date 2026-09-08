@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var form = panel.querySelector("#gateForm");
   var COMPLETED_KEY = "sikho_learning_gate_completed";
+  var OPEN_KEY = "sikho_learning_gate_open";
   var WEBHOOK_URL = "https://webhooks.integrately.com/a/webhooks/a945859bb59b4a3a98177acbfd1f2f77";
   var submitButton = form.querySelector(".gate-submit");
   var status = form.querySelector(".gate-status");
@@ -77,10 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
     try { return localStorage.getItem(COMPLETED_KEY) === "true"; } catch (e) { return false; }
   }
 
+  function wasGateOpen() {
+    try { return localStorage.getItem(OPEN_KEY) === "true"; } catch (e) { return false; }
+  }
+
   function openGate() {
     if (hasCompletedGate()) return;
     panel.classList.remove("hidden");
     document.body.style.overflow = "hidden";
+    try { localStorage.setItem(OPEN_KEY, "true"); } catch (e) {}
     var firstInput = form.querySelector("input");
     if (firstInput) firstInput.focus();
   }
@@ -88,9 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeGate() {
     panel.classList.add("hidden");
     document.body.style.overflow = "";
+    try { localStorage.removeItem(OPEN_KEY); } catch (e) {}
   }
 
-  if (!hasCompletedGate()) setTimeout(openGate, 30000);
+  if (wasGateOpen()) openGate();
+  else if (!hasCompletedGate()) setTimeout(openGate, 30000);
 
   /* ---- Numeric-only phone: block non-digits as the user types ---- */
   var phone = form.querySelector("#g-phone");
