@@ -925,6 +925,7 @@ tr.webinar-dim { opacity: .45; }
 }
 .card-body { padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .card-body h3 { font-size: 17px; font-weight: 700; color: var(--blue-900); line-height: 1.35; }
+.session-subtopic { color: var(--gray-600); font-size: 13px; line-height: 1.45; margin: -4px 0 0; }
 .tag-badge {
   align-self: flex-start;
   background: var(--amber-50);

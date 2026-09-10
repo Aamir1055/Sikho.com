@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
           '</div>' +
           '<div class="form-group">' +
             '<label for="g-phone"><span data-i18n="gate.phone">Phone Number</span><span class="required-mark" aria-hidden="true">*</span></label>' +
-            '<input type="tel" id="g-phone" name="phone" data-i18n-ph="gate.phonePh" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" required />' +
+            '<input type="tel" id="g-phone" name="phone" data-i18n-ph="gate.phonePh" inputmode="numeric" maxlength="10" pattern="[5-9][0-9]{9}" placeholder="10-digit mobile number" autocomplete="tel" required />' +
           '</div>' +
           '<div class="form-group">' +
             '<label for="g-language"><span data-i18n="gate.preferredLanguage">Preferred language</span><span class="required-mark" aria-hidden="true">*</span></label>' +

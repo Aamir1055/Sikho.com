@@ -1503,7 +1503,7 @@ src="https://www.facebook.com/tr?id=1056877927093120&ev=PageView&noscript=1"
                 <div class="err">Apna full name likho</div>
             </div>
             <div class="field">
-                <input type="tel" id="f-phone" placeholder="Mobile number dalo" required maxlength="10" inputmode="numeric" autocomplete="tel-national">
+                <input type="tel" id="f-phone" placeholder="Mobile number dalo" required maxlength="10" pattern="[5-9][0-9]{9}" inputmode="numeric" autocomplete="tel-national">
                 <div class="err">Mobile number dalo</div>
             </div>
             <div class="field">
@@ -1670,6 +1670,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+document.getElementById('formSection')?.classList.add('show');
 
 // ========== NAVBAR SCROLL BEHAVIOR ==========
 (function() {
@@ -2250,8 +2251,9 @@ function fireConfetti() {
         utmContent: getParam('utm_content')
     };
     function validatePhoneOnType() {
-        const numericValue = phone.value.replace(/\D/g, '');
-        phone.value = numericValue.slice(0, 10);
+        let numericValue = phone.value.replace(/\D/g, '').slice(0, 10);
+        if (numericValue && !/^[5-9]/.test(numericValue)) numericValue = '';
+        phone.value = numericValue;
         const field = phone.closest('.field');
         if (field) field.classList.remove('invalid');
     }
@@ -2272,7 +2274,7 @@ function fireConfetti() {
         if (!document.getElementById('f-name').value.trim() || document.getElementById('f-name').value.trim().length < 2 || /[^a-zA-Z\s]/.test(document.getElementById('f-name').value)) {
             document.getElementById('f-name').closest('.field').classList.add('invalid'); ok = false;
         }
-        if (!phone.value.trim()) { phone.closest('.field').classList.add('invalid'); ok = false; }
+        if (!/^[5-9][0-9]{9}$/.test(phone.value.trim())) { phone.closest('.field').classList.add('invalid'); ok = false; }
         if (!document.getElementById('f-language').value) { document.getElementById('f-language').closest('.field').classList.add('invalid'); ok = false; }
         if (!document.getElementById('f-exp').value) { document.getElementById('f-exp').closest('.field').classList.add('invalid'); ok = false; }
         if (!document.getElementById('f-market').value) { document.getElementById('f-market').closest('.field').classList.add('invalid'); ok = false; }

@@ -388,6 +388,64 @@ document.addEventListener("DOMContentLoaded", function () {
     el.textContent = monthYearFormatter.format(currentDate);
   });
 
+  /* ---- Daily course topic and live event schedule ---- */
+  var dailySessions = document.querySelectorAll("[data-daily-session]");
+  if (dailySessions.length) {
+    var courseTopics = [
+      "Introduction to the Stock Market",
+      "Basics of Chart Reading",
+      "Stock Market Terminology",
+      "Equity, Futures & Options",
+      "Trading vs Investing",
+      "Risk-Reward Ratio",
+      "Fundamental Analysis"
+    ];
+    var courseSubtopics = [
+      "What it is, how it works, key players, and market structure.",
+      "Candlesticks, chart patterns, trend lines and support & resistance.",
+      "Key terms every trader/investor should know.",
+      "Features, benefits and use cases of each segment.",
+      "Goals, time horizon, risk and return comparison.",
+      "Managing risk, setting targets, position sizing.",
+      "Economic factors, company analysis, long-term value."
+    ];
+    var indiaDateParts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit"
+    }).formatToParts(new Date()).reduce(function (parts, item) {
+      parts[item.type] = item.value;
+      return parts;
+    }, {});
+    var todayIndia = new Date(indiaDateParts.year + "-" + indiaDateParts.month + "-" + indiaDateParts.day + "T00:00:00Z");
+    var courseStart = new Date("2026-09-10T00:00:00Z");
+    var calendarDays = Math.floor((todayIndia - courseStart) / 86400000);
+    var sundayCount = Math.floor((calendarDays + 3) / 7);
+    var sessionNumber = ((calendarDays - sundayCount) % 7 + 7) % 7;
+    var sessionDate = new Date(todayIndia);
+    if (todayIndia.getUTCDay() === 0) {
+      sessionDate.setUTCDate(sessionDate.getUTCDate() + 1);
+    }
+    var isSaturday = sessionDate.getUTCDay() === 6;
+    var startHour = isSaturday ? 13 : 19;
+    var sessionDateTime = sessionDate.toISOString().slice(0, 10) + "T" + String(startHour).padStart(2, "0") + ":00:00+05:30";
+    var topic = courseTopics[sessionNumber];
+    var topicLabel = "Day " + (sessionNumber + 1);
+    var timeLabel = (isSaturday ? "1:00 PM - 3:00 PM" : "7:00 PM - 8:30 PM") + " IST";
+    dailySessions.forEach(function (event) {
+      var title = event.querySelector("h3");
+      var subtopic = event.querySelector(".session-subtopic");
+      var badge = event.querySelector(".tag-badge");
+      var time = event.querySelector("time");
+      if (title) title.textContent = topic;
+      if (subtopic) subtopic.textContent = courseSubtopics[sessionNumber];
+      if (badge) badge.textContent = topicLabel;
+      if (time) {
+        time.textContent = timeLabel;
+        time.setAttribute("datetime", sessionDateTime);
+      }
+      event.setAttribute("data-date", sessionDateTime);
+    });
+  }
+
   /* ---- Live event dates and upcoming/past schedule ---- */
   var events = document.querySelectorAll("[data-date]");
   if (events.length) {
