@@ -431,7 +431,7 @@ if (dailySessions.length) {
    *
    * Currently: Day 5
    */
-  var currentCourseDay = 5;
+  var currentCourseDay = 6;
 
   var sessionNumber = currentCourseDay - 1;
 
