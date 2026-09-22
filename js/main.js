@@ -397,43 +397,60 @@ var dailySessions = document.querySelectorAll("[data-daily-session]");
 
 if (dailySessions.length) {
 
-  var courseTopics = [
-    "Introduction to the Stock Market",
-    "Basics of Chart Reading",
-    "Stock Market Terminology",
-    "Equity, Futures & Options",
-    "Trading vs Investing",
-    "Risk-Reward Ratio",
-    "Fundamental Analysis"
-  ];
-
-  var courseSubtopics = [
-    "What it is, how it works, key players, and market structure.",
-    "Candlesticks, chart patterns, trend lines and support & resistance.",
-    "Key terms every trader/investor should know.",
-    "Features, benefits and use cases of each segment.",
-    "Goals, time horizon, risk and return comparison.",
-    "Managing risk, setting targets, position sizing.",
-    "Economic factors, company analysis, long-term value."
-  ];
-
   /*
-   * IMPORTANT:
-   * This is the actual course day according to the company schedule.
-   *
-   * Day 1 = 1
-   * Day 2 = 2
-   * Day 3 = 3
-   * Day 4 = 4
-   * Day 5 = 5
-   * Day 6 = 6
-   * Day 7 = 7
-   *
-   * Currently: Day 5
+   * Two 7-day levels, run back-to-back and then repeated: Intermediate
+   * (days 1-7) followed by Advance (days 1-7). Sessions are Monday-Friday
+   * only, 7:00-8:30 PM IST. Everything below is derived from today's date
+   * in India, so the site advances itself every weekday with no manual
+   * editing required.
    */
-  var currentCourseDay = 7;
+  var COURSE_LEVELS = [
+    {
+      name: "Intermediate",
+      topics: [
+        "Correlation Between Entities",
+        "Introduction to International Market",
+        "Types of Market Sessions",
+        "Technical Analysis",
+        "Usage of 5 Best Indicators",
+        "Introduction to Options Trading",
+        "Option Buying Vs Option Selling"
+      ],
+      subtopics: [
+        "How markets, assets and global events are connected.",
+        "Global exchanges, major indices, opportunities & risks.",
+        "Asian / London / New York (with timings and characteristics).",
+        "Trends, patterns and chart-based trading strategies.",
+        "Moving Average, RSI, MACD, Bollinger Bands, Volume.",
+        "Calls, Puts, contract size, basics.",
+        "Strategies, risk, reward and suitability."
+      ]
+    },
+    {
+      name: "Advance",
+      topics: [
+        "Trading Psychology",
+        "Sentimental Analysis",
+        "Theories of Stock Market",
+        "SMC Concept",
+        "Option Chain Analysis",
+        "Advanced Chart Patterns",
+        "Risk Management & Trade Plan"
+      ],
+      subtopics: [
+        "Discipline, emotions, mindset, consistency.",
+        "News, social media, global events and market sentiment.",
+        "Dow Theory, Efficient Market Hypothesis, Elliott Wave Theory and more.",
+        "Market structure, liquidity, order blocks, etc.",
+        "Open Interest, PCR, strike selection, market direction.",
+        "Harmonic patterns, Fibonacci retracement, price action strategies.",
+        "Position sizing, portfolio management, performance review."
+      ]
+    }
+  ];
 
-  var sessionNumber = currentCourseDay - 1;
+  /* Intermediate Day 1. Must be a Monday-Friday date. */
+  var CAMPAIGN_START = "2026-09-22";
 
   var indiaDateParts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Kolkata",
@@ -452,31 +469,46 @@ if (dailySessions.length) {
     "T00:00:00Z"
   );
 
-  var sessionDate = new Date(todayIndia);
+  var campaignStart = new Date(CAMPAIGN_START + "T00:00:00Z");
 
-  if (todayIndia.getUTCDay() === 0) {
-    sessionDate.setUTCDate(sessionDate.getUTCDate() + 1);
+  /* No session on weekends: roll forward to the next Monday's slot. */
+  var sessionDate = new Date(todayIndia);
+  var todayDay = sessionDate.getUTCDay();
+  if (todayDay === 6) sessionDate.setUTCDate(sessionDate.getUTCDate() + 2);
+  else if (todayDay === 0) sessionDate.setUTCDate(sessionDate.getUTCDate() + 1);
+
+  /* Count weekdays between campaign start and the session date. */
+  var weekdaysElapsed = 0;
+  var cursor = new Date(campaignStart);
+  while (cursor < sessionDate) {
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+    var cursorDay = cursor.getUTCDay();
+    if (cursorDay !== 0 && cursorDay !== 6) weekdaysElapsed++;
   }
 
-  var isSaturday = sessionDate.getUTCDay() === 6;
+  var totalCycleLength = COURSE_LEVELS.reduce(function (sum, lvl) {
+    return sum + lvl.topics.length;
+  }, 0);
+  var cycleIndex = ((weekdaysElapsed % totalCycleLength) + totalCycleLength) % totalCycleLength;
 
-  var startHour = isSaturday ? 13 : 19;
+  var levelIndex = 0;
+  var dayIndex = cycleIndex;
+  for (var i = 0; i < COURSE_LEVELS.length; i++) {
+    if (dayIndex < COURSE_LEVELS[i].topics.length) {
+      levelIndex = i;
+      break;
+    }
+    dayIndex -= COURSE_LEVELS[i].topics.length;
+  }
 
-  var sessionDateTime =
-    sessionDate.toISOString().slice(0, 10) +
-    "T" +
-    String(startHour).padStart(2, "0") +
-    ":00:00+05:30";
+  var level = COURSE_LEVELS[levelIndex];
+  var currentCourseDay = dayIndex + 1;
+  var topic = level.topics[dayIndex];
+  var subtopicText = level.subtopics[dayIndex];
+  var topicLabel = level.name + " · Day " + currentCourseDay;
+  var timeLabel = "7:00 PM - 8:30 PM IST";
 
-  var topic = courseTopics[sessionNumber];
-
-  var topicLabel = "Day " + currentCourseDay;
-
-  var timeLabel =
-    (isSaturday
-      ? "1:00 PM - 3:00 PM"
-      : "7:00 PM - 8:30 PM") +
-    " IST";
+  var sessionDateTime = sessionDate.toISOString().slice(0, 10) + "T19:00:00+05:30";
 
   dailySessions.forEach(function (event) {
 
@@ -490,7 +522,7 @@ if (dailySessions.length) {
     }
 
     if (subtopic) {
-      subtopic.textContent = courseSubtopics[sessionNumber];
+      subtopic.textContent = subtopicText;
     }
 
     if (badge) {
@@ -504,6 +536,11 @@ if (dailySessions.length) {
 
     event.setAttribute("data-date", sessionDateTime);
   });
+
+  var bookingKicker = document.querySelector(".booking-head .kicker");
+  if (bookingKicker) {
+    bookingKicker.textContent = "Upcoming Sessions — " + level.name + " Level";
+  }
 }
 
 
